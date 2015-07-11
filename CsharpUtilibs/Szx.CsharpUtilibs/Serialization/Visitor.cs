@@ -142,7 +142,7 @@ namespace Szx.CsharpUtilibs.Serialization
             if (CurrentState == TraverseState.InClass) {
                 WriteFieldNameInNewLine(fieldInfo);
             }
-            WriteValue(obj);
+            WriteValue((obj is bool) ? obj.ToString().ToLower() : obj);
         }
 
         /// <summary>
@@ -285,8 +285,8 @@ namespace Szx.CsharpUtilibs.Serialization
         protected const string LeaveListPrompt = "]";
         protected const string ListElementDelimiter = ", ";
 
-        protected const string EnterDictionaryPrompt = "{";
-        protected const string LeaveDictionaryPrompt = "}";
+        protected const string EnterDictionaryPrompt = "[";
+        protected const string LeaveDictionaryPrompt = "]";
         protected const string DictionaryElementDelimiter = ",";
         protected const string KeyValueDelimiter = " : ";
 
