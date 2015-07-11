@@ -4,11 +4,18 @@ using System.Collections.Generic;
 
 namespace Szx.CsharpUtilibs.Test
 {
+    internal class C0
+    {
+
+    }
+
     internal class C1
     {
         string id = "C1";
-        int[] a = new int[] { 1, 2, 3, 4 };
+        int[] a = new int[0];
+        string[] s = new string[2] { null, "zz" };
 
+        C0 z = new C0();
         C2[,] b = new C2[2, 2] { { new C2(), new C3() }, { new C2(), new C2() } };
         C3 c = new C3();
         static C4 d = new C4();

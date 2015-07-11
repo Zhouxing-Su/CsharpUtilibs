@@ -15,6 +15,11 @@ namespace Szx.CsharpUtilibs.Collections
             }
             return lengths;
         }
+
+        public static object GetFirstElement(this Array array) {
+            int[] indices = new int[array.Rank];
+            return array.GetValue(indices);
+        }
     }
 
     internal static class QueueOrStackExtension

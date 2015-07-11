@@ -1,4 +1,7 @@
-﻿using System;
+﻿//#define DEBUG_VISITOR
+
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +12,9 @@ using System.Text;
 
 namespace Szx.CsharpUtilibs.Serialization
 {
+    using Szx.CsharpUtilibs.Collections;
+
+
     /// <summary> determine what kinds of objects will be visited. </summary>
     public enum VisitPolicy
     {
@@ -33,11 +39,11 @@ namespace Szx.CsharpUtilibs.Serialization
     /// </remarks>
     public interface IVisitor
     {
-        void OnEnterTraverse();
-        void OnLeaveTraverse();
+        void OnEnterTraverse(object obj = null);
+        void OnLeaveTraverse(object obj = null);
 
-        void OnEnterNode(object obj = null, IReadOnlyList<FieldInfo> fieldInfos = null);
-        void OnLeaveNode(object obj = null, IReadOnlyList<FieldInfo> fieldInfos = null);
+        void OnEnterNode(object obj = null, FieldInfo fieldInfo = null);
+        void OnLeaveNode(object obj = null, FieldInfo fieldInfo = null);
 
         #region events on objects
         void OnVisitLeaf(object obj = null, FieldInfo fieldInfo = null);
@@ -79,10 +85,24 @@ namespace Szx.CsharpUtilibs.Serialization
         #endregion
 
         #region Method
-        protected void Write<T>(T msg) { output.Append(msg); }
-        protected void WriteLine() { output.Append(textWriter.NewLine + Indent); }
-        protected void WriteInNewLine<T>(T msg) {
-            output.Append(textWriter.NewLine + Indent + msg);
+        private void Display() {
+#if DEBUG_VISITOR
+            Console.Clear();
+            Console.SetCursorPosition(0, 0);
+            Console.Write(output.ToString());
+#endif
+        }
+
+        #region writters
+        protected void Write(object msg) {
+            output.Append(msg ?? NullString);
+            Display();
+        }
+        protected void WriteLine() {
+            Write(textWriter.NewLine + Indent);
+        }
+        protected void WriteInNewLine(object msg) {
+            WriteLine(); Write(msg);
         }
         protected void WriteFieldNameInNewLine(FieldInfo fieldInfo) {
             WriteInNewLine(EnterNamePrompt + fieldInfo.GetFriendlyName()
@@ -91,24 +111,29 @@ namespace Szx.CsharpUtilibs.Serialization
         protected void WriteValue(object obj) {
             Write(((obj is string) ? (EnterValuePrompt + obj + LeaveValuePrompt) : (obj)));
         }
+        #endregion
 
-        public void OnEnterTraverse() {
-            textWriter.Write(EnterClassPrompt);
+        public void OnEnterTraverse(object obj = null) {
+            Write(EnterClassPrompt);
         }
 
-        public void OnLeaveTraverse() {
+        public void OnLeaveTraverse(object obj = null) {
+            output.Length -= ClassElementDelimiter.Length;
+#if DEBUG_VISITOR
+            Display();
+            textWriter.WriteLine();
+#else
             textWriter.WriteLine(output.ToString());
+#endif
             textWriter.WriteLine(LeaveClassPrompt);
         }
 
-        public void OnEnterNode(object obj = null, IReadOnlyList<FieldInfo> fieldInfos = null) {
+        public void OnEnterNode(object obj = null, FieldInfo fieldInfo = null) {
             indent.Append(IndentDelta);
         }
 
-        public void OnLeaveNode(object obj = null, IReadOnlyList<FieldInfo> fieldInfos = null) {
-            if (CurrentState != TraverseState.InClass) {
-                Write(ElementDelimiter[(int)CurrentState]);
-            }
+        public void OnLeaveNode(object obj = null, FieldInfo fieldInfo = null) {
+            Write(ElementDelimiter[(int)CurrentState]);
             indent.Length -= IndentDelta.Length;
         }
 
@@ -116,14 +141,6 @@ namespace Szx.CsharpUtilibs.Serialization
         public void OnVisitLeaf(object obj = null, FieldInfo fieldInfo = null) {
             if (CurrentState == TraverseState.InClass) {
                 WriteFieldNameInNewLine(fieldInfo);
-            } else if (CurrentState == TraverseState.InDictionary) {
-                if (IsKeyWritten) {
-                    Write(KeyValueDelimiter);
-                    IsKeyWritten = false;
-                } else {
-                    WriteLine();
-                    IsKeyWritten = true;
-                }
             }
             WriteValue(obj);
         }
@@ -133,13 +150,18 @@ namespace Szx.CsharpUtilibs.Serialization
         /// can be changed by other event.
         /// </summary>
         public void OnEnterNonLeaf(object obj = null, FieldInfo fieldInfo = null) {
-            states.Push(TraverseState.InClass);
-            WriteFieldNameInNewLine(fieldInfo);
+            if (CurrentState == TraverseState.InClass) {
+                WriteFieldNameInNewLine(fieldInfo);
+            }
             Write(EnterClassPrompt);
+            states.Push(TraverseState.InClass);
         }
 
         public void OnLeaveNonLeaf(object obj = null, FieldInfo fieldInfo = null) {
-            if (CurrentState == TraverseState.InClass) { WriteInNewLine(LeaveClassPrompt); }
+            if (CurrentState == TraverseState.InClass) {
+                output.Length -= ClassElementDelimiter.Length;
+                WriteInNewLine(LeaveClassPrompt);
+            }
             states.Pop();
         }
 
@@ -148,15 +170,15 @@ namespace Szx.CsharpUtilibs.Serialization
         }
 
         public void OnLeaveArray(Array array = null) {
-            OnLeaveList();
+            OnLeaveList((array.Length == 0), array.GetType().GetElementType().IsPrintable());
         }
 
         public void OnEnterDictionary(IDictionary dictionary = null) {
+            output.Length -= EnterClassPrompt.Length;
+            Write(EnterDictionaryPrompt);
             // the last top of the stack must be InClass from OnEnterNonLeaf()
             states.Pop();   // reset the state to be InDictionary
             states.Push(TraverseState.InDictionary);
-            output.Length -= EnterClassPrompt.Length;
-            Write(EnterDictionaryPrompt);
         }
 
         public void OnLeaveDictionary(IDictionary dictionary = null) {
@@ -167,16 +189,32 @@ namespace Szx.CsharpUtilibs.Serialization
 
         // TODO[3]: write in new line if the elements are not primitive types
         public void OnEnterList(IList list = null) {
+            output.Length -= EnterClassPrompt.Length;
+            Write(EnterListPrompt);
             // the last top of the stack must be InClass from OnEnterNonLeaf()
             states.Pop();   // reset the state to be InList
             states.Push(TraverseState.InList);
-            output.Length -= EnterClassPrompt.Length;
-            Write(EnterListPrompt);
         }
 
         public void OnLeaveList(IList list = null) {
+            bool isEmpty = (list.Count == 0);
+            OnLeaveList(isEmpty, isEmpty || list[0].GetType().IsPrintable());
+        }
+
+        /// <summary> 
+        /// agent for list like collections whose type is incompatible with
+        /// IList. As the list object is not in use currently.
+        /// </summary>
+        /// <param name="isEmpty"> if the list is empty. </param>
+        /// <param name="isElementPrimitive"> 
+        /// if (isEmpty == true), isElementPrimitive can be any value. 
+        /// </param>
+        private void OnLeaveList(bool isEmpty, bool isElementPrimitive) {
             // let OnLeaveNonLeaf() pop the state
-            output.Length -= ListElementDelimiter.Length;
+            if (!isEmpty) {
+                output.Length -= ListElementDelimiter.Length;
+                if (!isElementPrimitive) { WriteLine(); }
+            }
             Write(LeaveListPrompt);
         }
 
@@ -185,7 +223,7 @@ namespace Szx.CsharpUtilibs.Serialization
         }
 
         public void OnLeaveCollection(ICollection<object> collection = null) {
-            OnLeaveList();
+            OnLeaveList((collection.Count == 0), collection.GetType().GetGenericArguments()[0].IsPrintable());
         }
 
         public void OnEnterBitArray(BitArray bitArray = null) {
@@ -193,7 +231,7 @@ namespace Szx.CsharpUtilibs.Serialization
         }
 
         public void OnLeaveBitArray(BitArray bitArray = null) {
-            OnLeaveList();
+            OnLeaveList((bitArray.Count == 0), true);
         }
 
         // UNDONE[5] : same as list?
@@ -227,6 +265,8 @@ namespace Szx.CsharpUtilibs.Serialization
             InClass, InList, InDictionary
         }
 
+        protected const string NullString = "null";
+
         protected const string IndentDelta = "  ";
 
         protected const string EnterNamePrompt = "\"";
@@ -235,7 +275,9 @@ namespace Szx.CsharpUtilibs.Serialization
         protected const string EnterValuePrompt = "\""; // also called leaf
         protected const string LeaveValuePrompt = "\""; // also called leaf
 
-        protected const string EnterClassPrompt = "{";
+        // EnterClassPrompt must have spaces whose number is the 
+        // same as LeaveClassPrompt.Length in case empty class
+        protected const string EnterClassPrompt = "{ ";
         protected const string LeaveClassPrompt = "}";
         protected const string ClassElementDelimiter = ",";
 
@@ -243,8 +285,8 @@ namespace Szx.CsharpUtilibs.Serialization
         protected const string LeaveListPrompt = "]";
         protected const string ListElementDelimiter = ", ";
 
-        protected const string EnterDictionaryPrompt = "<";
-        protected const string LeaveDictionaryPrompt = ">";
+        protected const string EnterDictionaryPrompt = "{";
+        protected const string LeaveDictionaryPrompt = "}";
         protected const string DictionaryElementDelimiter = ",";
         protected const string KeyValueDelimiter = " : ";
 
@@ -269,9 +311,6 @@ namespace Szx.CsharpUtilibs.Serialization
         private TextWriter textWriter;
 
         private VisitPolicy policy;
-
-        /// <summary> used in dictionary. </summary>
-        private bool IsKeyWritten = false;
         #endregion
     }
 

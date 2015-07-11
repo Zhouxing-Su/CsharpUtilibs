@@ -1,0 +1,510 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CsharpUtilibs</name>
+    </assembly>
+    <members>
+        <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1">
+            <summary>
+            utility for improving performance on frequent one-dimensional array 
+            concatenation. Order of elements will be the same as concatenation order.
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.InitArrayNum">
+            <summary> the initial capacity of $arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.InitBufferCapacity">
+            <summary> the length of concatBuffer on the first call of ToReadOnlyList(). </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.ThresholdArrayLength">
+            <summary> 
+            threshold for deciding whether copy incoming array to buffer directly 
+            or save it to $arrays temporarily.
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Main">
+            <summary> unit test. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.#ctor(`0[],System.Int32,System.Int32)">
+            <summary> initialize buffer. </summary>
+            <param name="array"> first array to fill the buffer. </param>
+            <param name="concatCount"> possible number of invoking Concat(). </param>
+            <param name="bufferCapacity"> possible number of elements. </param>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Concat(`0[])">
+            <summary>
+            record the array to be concatenated. <para />
+            call Flush() or call Clone() on incoming arrays if you want to
+            the elements not be influenced by changes on original arrays.
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.ToReadOnlyList">
+            <summary>
+            get concatenated arrays.
+            </summary>
+            <returns>
+            if all arrays in buffer is null or empty,           <para />
+                return empty array (size of 0 but not null).    <para />
+            if there is arrays with actual elements in buffer,  <para />
+                return a readonly list of elements.
+            </returns>
+            <remarks> 
+            the returned list is not a copy of the buffer, user could
+            do deep/shallow copy themselves on demands.
+            </remarks>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Flush">
+            <summary> do real concatenation on arrays in the buffer. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Clear">
+            <summary> 
+            reset state of the buffer to allow new types of array concatenation. <para />
+            it will remove all buffered elements but keep the resources. 
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Dispose">
+            <summary> 
+            release all resources. <para />
+            the object must not be used after calling it. 
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.AdjustCapacity(System.Int32)">
+            <summary> 
+            adjust buffer to a size of some power of 2 next to required capacity. <para />
+            this can also be used to shrink the buffer to save space. 
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.arrays">
+            <summary> hold incoming arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatBuffer">
+            <summary> hold the concatenated array. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatedArrayNum">
+            <summary> 
+            number of arrays in $arrays which has been concatenated to concatBuffer. 
+            it is also the index of next array to be concatenated in $arrays.
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatedElementNum">
+            <summary> capacity of concatBuffer. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.totalElementNum">
+            <summary> number of elements in buffer. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilder`1.Main">
+            <summary> unit test. </summary>
+            <example> 
+            [Test1]                                                         <para />
+            Array.CopyTo()1 : 3244 (no allocate)                            <para />
+            Array.CopyTo()2 : 6709 (allocate on every concat)               <para />
+            ArrayBuilderBasedOnList1 : 6840 (allocate on output only)       <para />
+            ArrayBuilderBasedOnList2 : 5790 (allocate on every concat)      <para />
+            ArrayBuilderBasedOnArray1 : 3930 (allocate on output only)      <para />
+            ArrayBuilderBasedOnArray2 : 4128 (allocate on every concat)     <para />
+            StringBuilder1 : 768 (allocate on output only)                  <para />
+            StringBuilder2 : 784 (allocate on every concat)                 <para />
+            ====================================                            <para />
+            Array.CopyTo()1 : 5135 (no allocate)                            <para />
+            Array.CopyTo()2 : 14760 (allocate on every concat)              <para />
+            ArrayBuilderBasedOnList1 : 15578 (allocate on output only)      <para />
+            ArrayBuilderBasedOnList2 : 16569 (allocate on every concat)     <para />
+            ArrayBuilderBasedOnArray1 : 5964 (allocate on output only)      <para />
+            ArrayBuilderBasedOnArray2 : 7368 (allocate on every concat)     <para />
+            StringBuilder1 : 2701 (allocate on output only)                 <para />
+            StringBuilder2 : 9123 (allocate on every concat)                <para />
+            ====================================                            <para />
+            Array.CopyTo()1 : 5816 (no allocate)                            <para />
+            Array.CopyTo()2 : 82660 (allocate on every concat)              <para />
+            ArrayBuilderBasedOnList1 : 17794 (allocate on output only)      <para />
+            ArrayBuilderBasedOnList2 : 19414 (allocate on every concat)     <para />
+            ArrayBuilderBasedOnArray1 : 6625 (allocate on output only)      <para />
+            ArrayBuilderBasedOnArray2 : 8168 (allocate on every concat)     <para />
+            StringBuilder1 : 10217 (allocate on output only)                <para />
+            StringBuilder2 : 71296 (allocate on every concat)               <para />
+            ====================================                            <para />
+            Array.CopyTo()1 : 8741 (no allocate)                            <para />
+            Array.CopyTo()2 : 467125 (allocate on every concat)             <para />
+            ArrayBuilderBasedOnList1 : 26149 (allocate on output only)      <para />
+            ArrayBuilderBasedOnList2 : 28850 (allocate on every concat)     <para />
+            ArrayBuilderBasedOnArray1 : 8472 (allocate on output only)      <para />
+            ArrayBuilderBasedOnArray2 : 10195 (allocate on every concat)    <para />
+            StringBuilder1 : 42324 (allocate on output only)                <para />
+            StringBuilder2 : 391748 (allocate on every concat)              <para />
+            ====================================                            <para />
+            [Test2]                                                         <para />
+            Array.CopyTo()1 : 4983 (no allocate)                            <para />
+            Array.CopyTo()2 : 10701 (allocate on every concat)              <para />
+            ArrayBuilderBasedOnList1 : 8583 (allocate on output only)       <para />
+            ArrayBuilderBasedOnList2 : 10637 (allocate on every concat)     <para />
+            ArrayBuilderBasedOnArray1 : 6073 (allocate on output only)      <para />
+            ArrayBuilderBasedOnArray2 : 5942 (allocate on every concat)     <para />
+            StringBuilder1 : 1804 (allocate on output only)                 <para />
+            StringBuilder2 : 1708 (allocate on every concat)                <para />
+            ====================================                            <para />
+            Array.CopyTo()1 : 9628 (no allocate)                            <para />
+            Array.CopyTo()2 : 20590 (allocate on every concat)              <para />
+            ArrayBuilderBasedOnList1 : 20839 (allocate on output only)      <para />
+            ArrayBuilderBasedOnList2 : 22764 (allocate on every concat)     <para />
+            ArrayBuilderBasedOnArray1 : 8468 (allocate on output only)      <para />
+            ArrayBuilderBasedOnArray2 : 11641 (allocate on every concat)    <para />
+            StringBuilder1 : 3656 (allocate on output only)                 <para />
+            StringBuilder2 : 12308 (allocate on every concat)               <para />
+            ====================================                            <para />
+            Array.CopyTo()1 : 7832 (no allocate)                            <para />
+            Array.CopyTo()2 : 118323 (allocate on every concat)             <para />
+            ArrayBuilderBasedOnList1 : 24357 (allocate on output only)      <para />
+            ArrayBuilderBasedOnList2 : 24680 (allocate on every concat)     <para />
+            ArrayBuilderBasedOnArray1 : 10211 (allocate on output only)     <para />
+            ArrayBuilderBasedOnArray2 : 11257 (allocate on every concat)    <para />
+            StringBuilder1 : 14749 (allocate on output only)                <para />
+            StringBuilder2 : 102166 (allocate on every concat)              <para />
+            ====================================                            <para />
+            Array.CopyTo()1 : 12962 (no allocate)                           <para />
+            Array.CopyTo()2 : 759865 (allocate on every concat)             <para />
+            ArrayBuilderBasedOnList1 : 42077 (allocate on output only)      <para />
+            ArrayBuilderBasedOnList2 : 41932 (allocate on every concat)     <para />
+            ArrayBuilderBasedOnArray1 : 13186 (allocate on output only)     <para />
+            ArrayBuilderBasedOnArray2 : 14975 (allocate on every concat)    <para />
+            StringBuilder1 : 64633 (allocate on output only)                <para />
+            StringBuilder2 : 628920 (allocate on every concat)              <para />
+            ====================================
+            </example>
+        </member>
+        <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1">
+            <summary>
+            utility for improving performance on frequent one-dimensional array 
+            concatenation. Order of elements will be the same as concatenation order.
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.InitArrayNum">
+            <summary> the initial capacity of $arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.BufferedCapacity">
+            <summary> the preserved capacity for incoming short arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.ThresholdArrayLength">
+            <summary> 
+            threshold for deciding whether copy incoming array to buffer directly 
+            or save it to $arrays temporarily.
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Main">
+            <summary> unit test. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(`0[])">
+            <summary> initialize buffer. </summary>
+            <param name="array"> first array to fill the buffer. </param>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(System.Int32,System.Int32)">
+            <summary> initialize buffer. </summary>
+            <param name="concatCount"> possible number of invoking Concat(). </param>
+            <param name="bufferCapacity"> possible number of elements. </param>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(`0[],System.Int32,System.Int32)">
+            <summary> initialize buffer. </summary>
+            <param name="array"> first array to fill the buffer. </param>
+            <param name="concatCount"> possible number of invoking Concat(). </param>
+            <param name="bufferCapacity"> possible number of elements. </param>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Concat(`0[])">
+            <summary>
+            record the array to be concatenated. <para />
+            call Flush() or call Clone() on incoming arrays if you want to
+            the elements not be influenced by changes on original arrays.
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.ToReadOnlyList">
+            <summary>
+            get concatenated arrays.
+            </summary>
+            <returns>
+            if all arrays in buffer is null or empty, <para />
+                return empty array (size of 0 but not null). <para />
+            if there is arrays with actual elements in buffer, <para />
+                return a readonly list of elements.
+            </returns>
+            <remarks> 
+            the returned list is not a copy of the buffer, user could
+            do deep/shallow copy themselves on demands.
+            </remarks>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Flush">
+            <summary> do real concatenation on arrays in the buffer. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Clear">
+            <summary> 
+            reset state of the buffer to allow new types of array concatenation. <para />
+            it will remove all buffered elements but keep the resources. 
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Dispose">
+            <summary> 
+            release all resources. <para />
+            the object must not be used after calling it. 
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.arrays">
+            <summary> hold incoming arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatBuffer">
+            <summary> hold the concatenated array. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatedArrayNum">
+            <summary> 
+            number of arrays in $arrays which has been concatenated to concatBuffer. 
+            it is also the index of next array to be concatenated in $arrays.
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatedElementNum">
+            <summary> capacity of concatBuffer. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.totalElementNum">
+            <summary> number of elements in buffer. </summary>
+        </member>
+        <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilder">
+            <summary>
+            utility for improving performance on frequent one-dimensional array 
+            concatenation. Order of elements will be the same as concatenation order.
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilder.InitArrayNum">
+            <summary> the initial capacity of $arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilder.InitBufferCapacity">
+            <summary> the length of concatBuffer on the first call of ToReadOnlyList(). </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilder.Main">
+            <summary> unit test. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilder.#ctor(System.Array,System.Type,System.Int32,System.Int32)">
+            <summary> initialize buffer. </summary>
+            <param name="array"> first array to fill the buffer. </param>
+            <param name="elementType"> 
+            specify element type if all arrays to be concatenated may be null. 
+            </param>
+            <param name="concatCount"> possible number of invoking Concat(). </param>
+            <param name="bufferCapacity"> possible number of elements. </param>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilder.ToArray">
+            <summary>
+            concatenate arrays in the buffer.
+            </summary>
+            <returns>
+            if all arrays in the buffer is null or 
+            </returns>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilder.Clear(System.Type)">
+            <summary> 
+            reset state of the buffer to allow new types of array concatenation. <para />
+            it will remove all buffered elements but keep the resources. 
+            </summary>
+            <param name="newElementType"> 
+            specify element type if all arrays to be concatenated may be null. 
+            </param>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilder.Dispose">
+            <summary> 
+            release all resources. <para />
+            the object must not be used after calling it. 
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilder.arrays">
+            <summary> hold incoming arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilder.concatBuffer">
+            <summary> hold the concatenated array. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilder.concatedArrayNum">
+            <summary> 
+            number of arrays in $arrays which has been concatenated to concatBuffer. 
+            it is also the index of next array to be concatenated in $arrays.
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilder.concatedElementNum">
+            <summary> capacity of concatBuffer. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilder.elementType">
+            <summary> element type of the first array. </summary>
+        </member>
+        <member name="T:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder">
+            <summary>
+            utility for improving performance on frequent array 
+            concatenation. Order of elements will be the same as concatenation order.
+            </summary>
+            <remarks> 
+            if you are sure the incoming array has only one dimension, 
+            use <![CDATA[ArrayBuilderBasedOnArray<ElementType>]]> for better performance.
+            </remarks>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.InitArrayNum">
+            <summary> the initial capacity of $arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.InitBufferCapacity">
+            <summary> the length of concatBuffer on the first call of ToReadOnlyList(). </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.Main">
+            <summary> unit test. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.Clear">
+            <summary> remove all elements but keep resources. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.Dispose">
+            <summary> 
+            release all resources. 
+            the object must not be used after calling it. 
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.arrays">
+            <summary> hold incoming arrays. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.concatBuffer">
+            <summary> hold the concatenated array. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.concatedArrayNum">
+            <summary> 
+            number of arrays in $arrays which has been concatenated to concatBuffer. 
+            it is also the index of next array to be concatenated in $arrays.
+            </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.concatedElementNum">
+            <summary> capacity of concatBuffer. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.lengths">
+            <summary> lengths of all dimensions. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.MultiDimensionalArrayBuilder.elementType">
+            <summary> element type of the first array. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ArrayExtensions.GetLengths(System.Array)">
+            <summary> put lengths of all dimensions in int[] and return it. </summary>
+        </member>
+        <member name="T:Szx.CsharpUtilibs.Collections.IObjectSet">
+            <summary> 
+            provide simple interface to track objects 
+            and check if an object is tracked.
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.IObjectSet.IsExist(System.Object)">
+            <summary> check the existence of an object. </summary>
+            <returns> true if object is exist, false otherwise. </returns>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.IObjectSet.Add(System.Object)">
+            <summary> if the object is not in the set, add it in. else do nothing. </summary>
+            <returns> true if successfully added, false otherwise. </returns>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ObjectSetUsingConditionalWeakTable.Main">
+            <summary> unit test. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ObjectSetUsingConditionalWeakTable.objectSet">
+            <summary> internal representation of the set. (only use the key) </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ObjectSetUsingConditionalWeakTable.tryGetValue_out0">
+            <summary> used to fill the out parameter of ConditionalWeakTable.TryGetValue(). </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ObjectSet.Main">
+            <summary> unit test. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Collections.ObjectSetUsingObjectIDGenerator.Main">
+            <summary> unit test. </summary>
+        </member>
+        <member name="F:Szx.CsharpUtilibs.Collections.ObjectSetUsingObjectIDGenerator.idGenerator">
+            <summary> internal representation of the set. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.Main">
+            <summary> unit test on object set. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.GetAllFields(System.Object,Szx.CsharpUtilibs.Serialization.VisitPolicy)">
+            <summary> get fields including which in base classes. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.GetAllFields(System.Object)">
+            <summary> get fields including which in base classes. </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.Traverse(System.Object)">
+            <summary> 
+            visit every object in the graph except root. <para />
+            sequence of events is described in IVisitor interface.
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.InternalTraverse(System.Object)">
+            <summary> internal implementation invoked by Traverse(). </summary>
+            <remarks>
+            System.Collections categorization: <para />
+            <![CDATA[
+                IDictionary  :  void Add(Object key, Object value) <--> foreach
+                    Dictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, 
+                        IDictionary, ICollection, IReadOnlyDictionary<TKey, TValue>, IReadOnlyCollection<KeyValuePair<TKey, 
+                        TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable, ISerializable, 
+                        IDeserializationCallback
+                    SortedDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, 
+                        IEnumerable<KeyValuePair<TKey, TValue>>, IDictionary, ICollection, IEnumerable  
+                    SortedList<TKey, TValue> : IDictionary<TKey, TValue>, ICollection<KeyValuePair<TKey, TValue>>, 
+                        IEnumerable<KeyValuePair<TKey, TValue>>, IDictionary, ICollection, IEnumerable  
+                    Hashtable : IDictionary, ICollection, IEnumerable, ISerializable, IDeserializationCallback, ICloneable  
+                    SortedList : IDictionary, ICollection, IEnumerable, ICloneable  
+                    
+                IList  :  void Add(Object item) <--> foreach
+                    ArrayList : IList, ICollection, IEnumerable, ICloneable  
+                    *List<T> : IList<T>, ICollection<T>, IList, ICollection, IReadOnlyList<T>, IReadOnlyCollection<T>, 
+                        IEnumerable<T>, IEnumerable  
+                
+                ICollection<T>  :  void Add(T item) <--> foreach
+                    HashSet<T> : ISerializable, IDeserializationCallback, ISet<T>, ICollection<T>, IEnumerable<T>, 
+                        IEnumerable  
+                    LinkedList<T> : ICollection<T>, IEnumerable<T>, ICollection, IEnumerable, ISerializable, 
+                        IDeserializationCallback  
+                    *List<T> : IList<T>, ICollection<T>, IList, ICollection, IReadOnlyList<T>, IReadOnlyCollection<T>, 
+                        IEnumerable<T>, IEnumerable  
+                    SortedSet<T> : ISet<T>, ICollection<T>, IEnumerable<T>, ICollection, IEnumerable, ISerializable, 
+                        IDeserializationCallback  
+                    
+                BitArray  :  BitArray(Int32[]) <--> void CopyTo(Array array, int index) + foreach
+                    BitArray : ICollection, IEnumerable, ICloneable  
+                    
+                Stack | Stack<T>  :  void Push( Object obj ) <--> Object[] ToArray() + foreach
+                    Stack : ICollection, IEnumerable, ICloneable  
+                    Stack<T> : IEnumerable<T>, ICollection, IEnumerable
+                    
+                Queue | Queue<T>  :  void Enqueue( Object obj ) <--> Object[] ToArray() + foreach
+                    Queue : ICollection, IEnumerable, ICloneable  
+                    Queue<T> : IEnumerable<T>, ICollection, IEnumerable  
+            ]]> 
+            </remarks>
+        </member>
+        <member name="T:Szx.CsharpUtilibs.Serialization.VisitPolicy">
+            <summary> determine what kinds of objects will be visited. </summary>
+        </member>
+        <member name="T:Szx.CsharpUtilibs.Serialization.IVisitor">
+            <summary> define actions on phases in traversing. </summary>
+            <remarks> 
+            [Attention] "event" in the following description means an event     <para />
+                        pair consist of (OnEnter* and OnLeave*) or OnVisit*.    <para />
+                                                                                <para />
+            if an event of On*Node is reached, it may come after any OnEnter*   <para />
+            and is followed by corresponding OnLeave*.                          <para />
+                                                                                <para />
+            if an event in "events on objects" is reached, it always comes      <para />
+            after an OnEnterNode() and is followed by an OnLeaveNode().         <para />
+                                                                                <para />
+            if an event in "events on collections" is reached, it always comes  <para />
+            after an OnEnterNonLeaf() and is followed by an OnLeaveNonLeaf().   <para />
+            </remarks>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Serialization.TextWriterVisitor.OnEnterNonLeaf(System.Object,System.Reflection.FieldInfo)">
+            <summary>
+            since it is agnostic after entering it, the top of the state stack 
+            can be changed by other event.
+            </summary>
+        </member>
+        <member name="M:Szx.CsharpUtilibs.Serialization.TextWriterVisitor.OnLeaveList(System.Boolean,System.Boolean)">
+            <summary> 
+            agent for list like collections whose type is incompatible with
+            IList. As the list object is not in use currently.
+            </summary>
+            <param name="isEmpty"> if the list is empty. </param>
+            <param name="isElementPrimitive"> 
+            if (isEmpty == true), isElementPrimitive can be any value. 
+            </param>
+        </member>
+    </members>
+</doc>

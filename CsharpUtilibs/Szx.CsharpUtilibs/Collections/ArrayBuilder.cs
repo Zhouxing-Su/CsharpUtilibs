@@ -757,7 +757,7 @@ namespace Szx.CsharpUtilibs.Collections
     /// </summary>
     /// <remarks> 
     /// if you are sure the incoming array has only one dimension, 
-    /// use ArrayBuilderBasedOnArray<ElementType> for better performance.
+    /// use <![CDATA[ArrayBuilderBasedOnArray<ElementType>]]> for better performance.
     /// </remarks>
     // UNDONE[9]: use Array.Copy() to support multidimensional arrays:
     //       Array.Copy(array, 0, concatBuffer, concatBuffer.Length, array.Length);

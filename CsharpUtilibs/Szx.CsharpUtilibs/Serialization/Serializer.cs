@@ -50,6 +50,7 @@ namespace Szx.CsharpUtilibs.Serialization
         /// visit every object in the graph except root. <para />
         /// sequence of events is described in IVisitor interface.
         /// </summary>
+        // TODO[8]: return the buffer to reduce time holding resources?
         public void Traverse(object obj) {
             visitor.OnEnterTraverse();
             InternalTraverse(obj);
@@ -99,8 +100,9 @@ namespace Szx.CsharpUtilibs.Serialization
         ///         Queue<T> : IEnumerable<T>, ICollection, IEnumerable  
         /// ]]> 
         /// </remarks>
-        // TODO1: pass value type by ref ?
+        // TODO[1]: pass value type by ref ?
         private void InternalTraverse(object obj) {
+            // UNDONE[0]: ObjectSet will block output of multiple reference on same object!!!
             if ((obj == null) || !visitedObjects.Add(obj)) { return; }
 
             Type t = obj.GetType();
@@ -124,19 +126,10 @@ namespace Szx.CsharpUtilibs.Serialization
             } else {    // non-collection types
                 IReadOnlyList<FieldInfo> fieldInfos =
                     t.IsPrimitive ? GetAllFields(obj, VisitPolicy.Instance) : GetAllFields(obj);
-                visitor.OnEnterNode(obj, fieldInfos);
                 foreach (FieldInfo f in fieldInfos) {
                     if (f.IsLiteral) { continue; }
-                    object subobj = f.GetValue(obj);
-                    if ((f.FieldType.IsPrimitive) || (subobj is string)) {
-                        visitor.OnVisitLeaf(subobj, f);
-                    } else {
-                        visitor.OnEnterNonLeaf(subobj, f);
-                        InternalTraverse(subobj);
-                        visitor.OnLeaveNonLeaf(subobj, f);
-                    }
+                    TraverseObject(f.GetValue(obj), f);
                 }
-                visitor.OnLeaveNode(obj, fieldInfos);
             }
         }
 
@@ -144,9 +137,21 @@ namespace Szx.CsharpUtilibs.Serialization
             Action<T> OnVisit, Action<T> OnLeave) where T : IEnumerable {
             OnVisit(collection);
             foreach (object item in collection) {
-                InternalTraverse(item);
+                TraverseObject(item);
             }
             OnLeave(collection);
+        }
+
+        private void TraverseObject(object obj, FieldInfo f = null) {
+            visitor.OnEnterNode(obj, f);
+            if (obj.IsPrintable()) {
+                visitor.OnVisitLeaf(obj, f);
+            } else {
+                visitor.OnEnterNonLeaf(obj, f);
+                InternalTraverse(obj);
+                visitor.OnLeaveNonLeaf(obj, f);
+            }
+            visitor.OnLeaveNode(obj, f);
         }
         #endregion
 
