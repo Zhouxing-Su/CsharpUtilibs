@@ -1,4 +1,7 @@
-﻿using System;
+﻿//#define WITHOUT_LINQ
+
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -35,6 +38,31 @@ namespace Szx.CsharpUtilibs.Collections
         }
         public static void Add<T>(this Queue<T> s, object obj) {
             s.Enqueue((T)obj);
+        }
+    }
+
+    internal static class IEnumerableExtensions
+    {
+        public static object First(this IEnumerable collection) {
+            IEnumerator enumerator = collection.GetEnumerator();
+            enumerator.MoveNext();
+            return enumerator.Current;
+        }
+
+#if WITHOUT_LINQ
+        public static object First<T>(this IEnumerable<T> collection) {
+            using (IEnumerator<T> enumerator = collection.GetEnumerator()) {
+                enumerator.MoveNext();
+                return enumerator.Current;
+            }
+        }
+#endif
+        public static object GetFirst(IEnumerable collection) {
+            return collection.First();
+        }
+
+        public static object GetFirst<T>(IEnumerable<T> collection) {
+            return collection.First();
         }
     }
 }

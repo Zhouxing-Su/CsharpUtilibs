@@ -53,23 +53,20 @@ namespace Szx.CsharpUtilibs.Serialization
         #endregion
 
         #region events on Collections
-        void OnEnterArray(Array array = null);
-        void OnLeaveArray(Array array = null);
+        void OnEnterArray(object obj = null);
+        void OnLeaveArray(object obj = null);
 
-        void OnEnterBitArray(BitArray bitArray = null);
-        void OnLeaveBitArray(BitArray bitArray = null);
+        void OnEnterBitArray(object obj = null);
+        void OnLeaveBitArray(object obj = null);
 
-        void OnEnterQueueOrStack(dynamic queueOrStack = null);
-        void OnLeaveQueueOrStack(dynamic queueOrStack = null);
+        void OnEnterDictionary(object obj = null);
+        void OnLeaveDictionary(object obj = null);
 
-        void OnEnterDictionary(IDictionary dictionary = null);
-        void OnLeaveDictionary(IDictionary dictionary = null);
+        void OnEnterList(object obj = null);
+        void OnLeaveList(object obj = null);
 
-        void OnEnterList(IList list = null);
-        void OnLeaveList(IList list = null);
-
-        void OnEnterCollection(ICollection<object> collection = null);
-        void OnLeaveCollection(ICollection<object> collection = null);
+        void OnEnterCollection(dynamic collection = null);
+        void OnLeaveCollection(dynamic collection = null);
         #endregion
 
         VisitPolicy Policy { get; set; }
@@ -164,15 +161,16 @@ namespace Szx.CsharpUtilibs.Serialization
             states.Pop();
         }
 
-        public void OnEnterArray(Array array = null) {
+        public void OnEnterArray(object obj = null) {
             OnEnterList();
         }
 
-        public void OnLeaveArray(Array array = null) {
+        public void OnLeaveArray(object obj = null) {
+            Array array = (Array)obj;
             OnLeaveList((array.Length == 0), array.GetType().GetElementType().IsPrintable());
         }
 
-        public void OnEnterDictionary(IDictionary dictionary = null) {
+        public void OnEnterDictionary(object obj = null) {
             output.Length -= EnterClassPrompt.Length;
             Write(EnterDictionaryPrompt);
             // the last top of the stack must be InClass from OnEnterNonLeaf()
@@ -180,13 +178,13 @@ namespace Szx.CsharpUtilibs.Serialization
             states.Push(TraverseState.InDictionary);
         }
 
-        public void OnLeaveDictionary(IDictionary dictionary = null) {
+        public void OnLeaveDictionary(object obj = null) {
             // let OnLeaveNonLeaf() pop the state
             output.Length -= DictionaryElementDelimiter.Length;
             WriteInNewLine(LeaveDictionaryPrompt);
         }
 
-        public void OnEnterList(IList list = null) {
+        public void OnEnterList(object obj = null) {
             output.Length -= EnterClassPrompt.Length;
             Write(EnterListPrompt);
             // the last top of the stack must be InClass from OnEnterNonLeaf()
@@ -194,7 +192,8 @@ namespace Szx.CsharpUtilibs.Serialization
             states.Push(TraverseState.InList);
         }
 
-        public void OnLeaveList(IList list = null) {
+        public void OnLeaveList(object obj = null) {
+            IList list = (IList)obj;
             bool isEmpty = (list.Count == 0);
             OnLeaveList(isEmpty, isEmpty || list[0].GetType().IsPrintable());
         }
@@ -216,29 +215,22 @@ namespace Szx.CsharpUtilibs.Serialization
             Write(LeaveListPrompt);
         }
 
-        public void OnEnterCollection(ICollection<object> collection = null) {
+        public void OnEnterCollection(dynamic collection = null) {
             OnEnterList();
         }
 
-        public void OnLeaveCollection(ICollection<object> collection = null) {
-            OnLeaveList((collection.Count == 0), collection.GetType().GetGenericArguments()[0].IsPrintable());
+        public void OnLeaveCollection(dynamic collection = null) {
+            OnLeaveList((collection.Count == 0),
+                TypeExtensions.CheckIsPrintable(IEnumerableExtensions.GetFirst(collection).GetType()));
         }
 
-        public void OnEnterBitArray(BitArray bitArray = null) {
+        public void OnEnterBitArray(object obj = null) {
             OnEnterList();
         }
 
-        public void OnLeaveBitArray(BitArray bitArray = null) {
+        public void OnLeaveBitArray(object obj = null) {
+            BitArray bitArray = (BitArray)obj;
             OnLeaveList((bitArray.Count == 0), true);
-        }
-
-        public void OnEnterQueueOrStack(dynamic queueOrStack = null) {
-            //OnEnterList();
-        }
-
-        // UNDONE[5] : same as list?
-        public void OnLeaveQueueOrStack(dynamic queueOrStack = null) {
-            
         }
         #endregion
 

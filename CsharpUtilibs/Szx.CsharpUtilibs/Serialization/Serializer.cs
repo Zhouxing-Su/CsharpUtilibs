@@ -104,22 +104,20 @@ namespace Szx.CsharpUtilibs.Serialization
         // TODO[1]: pass value type by ref ?
         private void InternalTraverse(object obj) {
             Type t = obj.GetType();
-            if (t.IsArray) {
+            if (obj is string) {
+                TraverseObject(obj);
+            } else if (t.IsArray) {
                 TraverseCollection((Array)obj, visitor.OnEnterArray, visitor.OnLeaveArray);
-            } else if (obj is BitArray) {
+            } else if (t == typeof(BitArray)) {
                 TraverseCollection((BitArray)obj,
                     visitor.OnEnterBitArray, visitor.OnLeaveBitArray);
-            } else if (((obj is Stack) || (typeof(Stack<>).IsAssignableFrom(t)))
-                || ((obj is Queue) || (typeof(Queue<>).IsAssignableFrom(t)))) {
-                TraverseCollection((IEnumerable)obj,
-                    visitor.OnEnterQueueOrStack, visitor.OnLeaveQueueOrStack);
-            } else if (obj is IDictionary) {    // with `void Add(Object key, Object value)`
+            } else if (obj is IDictionary) {  // with `void Add(Object key, Object value)`
                 TraverseCollection((IDictionary)obj,
                     visitor.OnEnterDictionary, visitor.OnLeaveDictionary);
-            } else if ((obj is IList)) {  // with `void Add(Object item)`
+            } else if (obj is IList) {      // with `void Add(Object item)`
                 TraverseCollection((IList)obj, visitor.OnEnterList, visitor.OnLeaveList);
-            } else if (typeof(ICollection<>).IsAssignableFrom(t)) {
-                TraverseCollection((ICollection<object>)obj,
+            } else if (obj is IEnumerable) {      // any other collections left 
+                TraverseCollection((IEnumerable)obj,    // (must implement `void Add(Object item)`)
                     visitor.OnEnterCollection, visitor.OnLeaveCollection);
             } else {    // non-collection types
                 IReadOnlyList<FieldInfo> fieldInfos =
@@ -131,8 +129,8 @@ namespace Szx.CsharpUtilibs.Serialization
             }
         }
 
-        private void TraverseCollection<T>(T collection,
-            Action<T> OnVisit, Action<T> OnLeave) where T : IEnumerable {
+        private void TraverseCollection(IEnumerable collection,
+            Action<object> OnVisit, Action<object> OnLeave) {
             OnVisit(collection);
             foreach (object item in collection) {
                 TraverseObject(item);
@@ -160,7 +158,6 @@ namespace Szx.CsharpUtilibs.Serialization
             } else {    // print "null"
                 visitor.OnVisitLeaf(obj, fieldInfo);
             }
-
             visitor.OnLeaveNode(obj, fieldInfo);
         }
         #endregion

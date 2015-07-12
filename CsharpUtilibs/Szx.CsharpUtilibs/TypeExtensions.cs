@@ -10,6 +10,10 @@ namespace Szx.CsharpUtilibs
         public static bool IsPrintable(this Type t) {
             return (t.IsPrimitive || (t == typeof(string)));
         }
+
+        public static bool CheckIsPrintable(Type t) {
+            return t.IsPrintable();
+        }
     }
 
     internal static class FieldInfoExtensions

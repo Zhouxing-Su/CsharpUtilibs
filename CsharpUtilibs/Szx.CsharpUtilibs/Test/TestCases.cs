@@ -40,6 +40,7 @@ namespace Szx.CsharpUtilibs.Test
     internal class C3 : C2
     {
         string id = "C3";
+        HashSet<char> h = new HashSet<char> { 's', 'z', 'x' };
 
         public override string ToString() {
             return id.ToString();
