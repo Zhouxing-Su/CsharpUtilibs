@@ -137,9 +137,8 @@ namespace Szx.CsharpUtilibs.Serialization
             indent.Length -= IndentDelta.Length;
         }
 
-        // UNDONE[0] : $ClassElementDelimiter insertion!
         public void OnVisitLeaf(object obj = null, FieldInfo fieldInfo = null) {
-            if (CurrentState == TraverseState.InClass) {
+            if (fieldInfo != null) {
                 WriteFieldNameInNewLine(fieldInfo);
             }
             WriteValue((obj is bool) ? obj.ToString().ToLower() : obj);
@@ -187,7 +186,6 @@ namespace Szx.CsharpUtilibs.Serialization
             WriteInNewLine(LeaveDictionaryPrompt);
         }
 
-        // TODO[3]: write in new line if the elements are not primitive types
         public void OnEnterList(IList list = null) {
             output.Length -= EnterClassPrompt.Length;
             Write(EnterListPrompt);
@@ -234,11 +232,14 @@ namespace Szx.CsharpUtilibs.Serialization
             OnLeaveList((bitArray.Count == 0), true);
         }
 
-        // UNDONE[5] : same as list?
-        public void OnEnterQueueOrStack(dynamic queueOrStack = null) { }
+        public void OnEnterQueueOrStack(dynamic queueOrStack = null) {
+            //OnEnterList();
+        }
 
         // UNDONE[5] : same as list?
-        public void OnLeaveQueueOrStack(dynamic queueOrStack = null) { }
+        public void OnLeaveQueueOrStack(dynamic queueOrStack = null) {
+            
+        }
         #endregion
 
         #region Property

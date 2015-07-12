@@ -16,9 +16,9 @@ namespace Szx.CsharpUtilibs.Test
         string[] s = new string[2] { null, "zz" };
 
         C0 z = new C0();
-        C2[,] b = new C2[2, 2] { { new C2(), new C3() }, { new C2(), new C2() } };
-        C3 c = new C3();
-        static C4 d = new C4();
+        C2[,] b = new C2[2, 2] { { new C2(), c }, { new C2(), new C2() } };
+        static C3 c = new C3();
+        C4 d = new C4();
         C5 e = new C5();
         C6 f = new C6();
 

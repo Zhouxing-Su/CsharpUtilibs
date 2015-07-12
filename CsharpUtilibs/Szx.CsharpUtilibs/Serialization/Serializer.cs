@@ -7,6 +7,7 @@ using System.Reflection;
 
 namespace Szx.CsharpUtilibs.Serialization
 {
+    using System.Runtime.CompilerServices;
     using Szx.CsharpUtilibs.Collections;
     using Szx.CsharpUtilibs.Test;
 
@@ -53,7 +54,7 @@ namespace Szx.CsharpUtilibs.Serialization
         // TODO[8]: return the buffer to reduce time holding resources?
         public void Traverse(object obj) {
             visitor.OnEnterTraverse();
-            InternalTraverse(obj);
+            if (obj != null) { InternalTraverse(obj); }
             visitor.OnLeaveTraverse();
         }
 
@@ -102,9 +103,6 @@ namespace Szx.CsharpUtilibs.Serialization
         /// </remarks>
         // TODO[1]: pass value type by ref ?
         private void InternalTraverse(object obj) {
-            // UNDONE[0]: ObjectSet will block output of multiple reference on same object!!!
-            if ((obj == null) || !visitedObjects.Add(obj)) { return; }
-
             Type t = obj.GetType();
             if (t.IsArray) {
                 TraverseCollection((Array)obj, visitor.OnEnterArray, visitor.OnLeaveArray);
@@ -142,16 +140,28 @@ namespace Szx.CsharpUtilibs.Serialization
             OnLeave(collection);
         }
 
-        private void TraverseObject(object obj, FieldInfo f = null) {
-            visitor.OnEnterNode(obj, f);
-            if (obj.IsPrintable()) {
-                visitor.OnVisitLeaf(obj, f);
-            } else {
-                visitor.OnEnterNonLeaf(obj, f);
-                InternalTraverse(obj);
-                visitor.OnLeaveNonLeaf(obj, f);
+        private void TraverseObject(object obj, FieldInfo fieldInfo = null) {
+            visitor.OnEnterNode(obj, fieldInfo);
+            if (obj != null) {
+                string id;
+                if (visitedObjects.TryGetValue(obj, out id)) {
+                    obj = id;
+                } else {
+                    visitedObjects.Add(obj, ObjectIdPrefix + (objectID++));
+                }
+
+                if (obj.GetType().IsPrintable()) {
+                    visitor.OnVisitLeaf(obj, fieldInfo);
+                } else {
+                    visitor.OnEnterNonLeaf(obj, fieldInfo);
+                    InternalTraverse(obj);
+                    visitor.OnLeaveNonLeaf(obj, fieldInfo);
+                }
+            } else {    // print "null"
+                visitor.OnVisitLeaf(obj, fieldInfo);
             }
-            visitor.OnLeaveNode(obj, f);
+
+            visitor.OnLeaveNode(obj, fieldInfo);
         }
         #endregion
 
@@ -167,12 +177,19 @@ namespace Szx.CsharpUtilibs.Serialization
 
         public static readonly TextWriterVisitor ConsoleWriter
             = new TextWriterVisitor(Console.Out);
+
+        /// <summary> concatenated with $objectID to form the ID string. </summary>
+        // UPDATE[9]: this may conflict if there is a string "@N"
+        public const string ObjectIdPrefix = "\uE000@\uF8FF\u0000#";
         #endregion
 
         #region Field
-        private IVisitor visitor;
+        protected IVisitor visitor;
 
-        private ObjectSet visitedObjects = new ObjectSet();
+        /// <summary> serial number of objects. </summary>
+        protected int objectID = 0;
+        /// <summary> record visited objects and their ID string. </summary>
+        protected ConditionalWeakTable<object, string> visitedObjects = new ConditionalWeakTable<object, string>();
         #endregion
     }
 }
