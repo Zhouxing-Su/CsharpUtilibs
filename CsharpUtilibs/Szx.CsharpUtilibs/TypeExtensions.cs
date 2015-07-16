@@ -20,7 +20,7 @@ namespace Szx.CsharpUtilibs
     {
         private static char[] BackingFieldNameDelimiters = new char[] { '<', '>' };
 
-        // UPDATE[5]: use a more compatible/portable way to achieve it!
+        // TUNEUP[5]: use a more compatible/portable way to achieve it!
         public static string GetFriendlyName(this FieldInfo fieldInfo) {
             return ((fieldInfo.IsDefined(typeof(CompilerGeneratedAttribute)))
                 ? fieldInfo.Name.Split(BackingFieldNameDelimiters, StringSplitOptions.RemoveEmptyEntries)[0]

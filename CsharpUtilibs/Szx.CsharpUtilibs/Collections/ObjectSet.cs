@@ -21,32 +21,13 @@ namespace Szx.CsharpUtilibs.Collections
         bool Add(object obj);
     }
 
-    public sealed class ObjectSet : ObjectSetUsingConditionalWeakTable
-    {
-        /// <summary> unit test. </summary>
-        internal new static void Main() {
-            ObjectSetUsingConditionalWeakTable.Main();
-            //ObjectSetUsingObjectIDGenerator.Main();
-        }
-    }
+#pragma warning disable 618
+    public sealed class ObjectSet : ObjectSetUsingConditionalWeakTable { }
+#pragma warning restore 618
 
+    [Obsolete("it may not get the best performance, please use ObjectSet instead.")]
     public class ObjectSetUsingConditionalWeakTable : IObjectSet
     {
-        /// <summary> unit test. </summary>
-        internal static void Main() {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            ObjectSetUsingConditionalWeakTable objSet = new ObjectSetUsingConditionalWeakTable();
-            for (int i = 0; i < 10000000; i++) {
-                object obj = new object();
-                if (objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
-                if (!objSet.Add(obj)) { Console.WriteLine("bug!!!"); }
-                if (!objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
-            }
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds);
-        }
-
         #region Constructor
         #endregion
 
@@ -83,24 +64,9 @@ namespace Szx.CsharpUtilibs.Collections
         #endregion
     }
 
-    [Obsolete("It will crash if there are too many objects and ObjectSetUsingConditionalWeakTable get a better performance.")]
+    [Obsolete("it will crash if there are too many objects, please use ObjectSet instead.")]
     public sealed class ObjectSetUsingObjectIDGenerator : IObjectSet
     {
-        /// <summary> unit test. </summary>
-        internal static void Main() {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            ObjectSetUsingObjectIDGenerator objSet = new ObjectSetUsingObjectIDGenerator();
-            for (int i = 0; i < 10000000; i++) {
-                object obj = new object();
-                if (objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
-                if (!objSet.Add(obj)) { Console.WriteLine("bug!!!"); }
-                if (!objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
-            }
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds);
-        }
-
         #region Constructor
         #endregion
 

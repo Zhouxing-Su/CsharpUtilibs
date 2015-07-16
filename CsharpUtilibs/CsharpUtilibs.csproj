@@ -11,7 +11,7 @@
     <AssemblyName>CsharpUtilibs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.1.39</AssemblyVersion>
+    <AssemblyVersion>1.0.1.58</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>ProjectInfo\CsharpUtilibs.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Szx.CsharpUtilibs.Test.Program</StartupObject>
@@ -58,10 +60,7 @@
     <Compile Include="Szx.CsharpUtilibs\TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ProjectInfo\App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ProjectInfo\ReadMe.txt" />
+    <None Include="Properties\App.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

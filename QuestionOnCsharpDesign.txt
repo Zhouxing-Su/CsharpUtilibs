@@ -1,0 +1,7 @@
+1.	maybe in most cases you could use `List<object>` as `ArrayList`,
+	so it may be possible to add such a feature that:
+		once you create a generic type of method `GT<T>`, the compiler
+		will generated a non-generic version `GT : GT<object>` of it.
+	just like implement `operator+` will automatically implement `+=`.
+
+2.	

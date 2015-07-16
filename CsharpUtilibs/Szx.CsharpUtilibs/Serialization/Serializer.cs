@@ -14,12 +14,6 @@ namespace Szx.CsharpUtilibs.Serialization
 
     public class SerializerBase
     {
-        /// <summary> unit test on object set. </summary>
-        internal static void Main() {
-            C1 a = new C1();
-            new SerializerBase().Traverse(a);
-        }
-
         #region Constructor
         public SerializerBase() : this(ConsoleWriter) { }
 
@@ -176,7 +170,7 @@ namespace Szx.CsharpUtilibs.Serialization
             = new TextWriterVisitor(Console.Out);
 
         /// <summary> concatenated with $objectID to form the ID string. </summary>
-        // UPDATE[9]: this may conflict if there is a string "@N"
+        // TUNEUP[9]: this may conflict if there is a string "@N"
         public const string ObjectIdPrefix = "\uE000@\uF8FF\u0000#";
         #endregion
 
