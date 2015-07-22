@@ -18,3 +18,6 @@ It also contains some useful collections which does not exist in system librarie
 
  * **Serialization**  
 Providing a more configurable serializer.
+
+ * **Threading**  
+Helper classes on multithread programing.

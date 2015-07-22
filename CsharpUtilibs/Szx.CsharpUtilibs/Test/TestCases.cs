@@ -1,12 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 
 namespace Szx.CsharpUtilibs.Test
 {
     internal class C0
     {
+        public static void f() {
+            Console.WriteLine("in f()");
+            Thread.Sleep(100000);
+            Console.WriteLine("out f()");
+        }
 
+        public void g(object obj) {
+            Console.WriteLine("in g(" + obj + ")");
+            Thread.Sleep(100000);
+            Console.WriteLine("out g(" + obj + ")");
+        }
+
+        public static void h() {
+            Console.WriteLine("in h()");
+            Thread.Sleep(1000);
+            Console.WriteLine("out h()");
+        }
     }
 
     internal class C1

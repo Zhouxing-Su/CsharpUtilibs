@@ -12,7 +12,7 @@
         </member>
         <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1">
             <summary>
-            a specific implementation of ArrayBuilder using <![CDATA[ElementType[]]]> as buffer. 
+            a specific implementation of ArrayBuilderTest using <![CDATA[ElementType[]]]> as buffer. 
             </summary>
         </member>
         <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.InitArrayNum">
@@ -88,7 +88,7 @@
         </member>
         <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1">
             <summary>
-            a specific implementation of ArrayBuilder using <![CDATA[List<ElementType>]]> as buffer. 
+            a specific implementation of ArrayBuilderTest using <![CDATA[List<ElementType>]]> as buffer. 
             </summary>
         </member>
         <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.InitArrayNum">
@@ -193,7 +193,7 @@
         <member name="F:Szx.CsharpUtilibs.Collections.ObjectSetUsingObjectIDGenerator.idGenerator">
             <summary> internal representation of the set. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Test.Collections.ArrayBuilder.TestPerformance">
+        <member name="M:Szx.CsharpUtilibs.Test.Collections.ArrayBuilderTest.TestPerformance">
             <summary> benchmark result. </summary>
             <example> 
             [Test1]                                                         <para />

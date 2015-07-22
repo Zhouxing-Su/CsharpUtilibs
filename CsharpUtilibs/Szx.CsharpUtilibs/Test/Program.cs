@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
+using System.Text;
+using System.Threading;
 
 
 #pragma warning disable 618
@@ -9,17 +10,20 @@ using System.Diagnostics;
 
 namespace Szx.CsharpUtilibs.Test
 {
-    using Szx.CsharpUtilibs.Serialization;
     using Szx.CsharpUtilibs.Collections;
+    using Szx.CsharpUtilibs.Serialization;
+    using Szx.CsharpUtilibs.Threading;
 
 
     internal class Program
     {
         private static void Main(string[] args) {
-            Collections.ArrayBuilder.Test();
-            Collections.ObjectSet.Test();
+            //Collections.ArrayBuilderTest.Test();
+            //Collections.ObjectSetTest.Test();
 
-            Serialization.Serializer.Test();
+            //Serialization.SerializerTest.Test();
+
+            Threading.WorkerTest.Test();
         }
     }
 
@@ -39,7 +43,7 @@ namespace Szx.CsharpUtilibs.Test
 
     namespace Collections
     {
-        internal static class ArrayBuilder
+        internal static class ArrayBuilderTest
         {
             internal static void Test() {
                 TestCorrectness();
@@ -328,7 +332,7 @@ namespace Szx.CsharpUtilibs.Test
             }
         }
 
-        internal static class ObjectSet
+        internal static class ObjectSetTest
         {
             internal static void Test() {
                 TestCorrectness();
@@ -370,7 +374,7 @@ namespace Szx.CsharpUtilibs.Test
 
     namespace Serialization
     {
-        internal static class Serializer
+        internal static class SerializerTest
         {
             internal static void Test() {
                 TestCorrectness();
@@ -380,6 +384,33 @@ namespace Szx.CsharpUtilibs.Test
             internal static void TestCorrectness() {
                 C1 a = new C1();
                 new SerializerBase().Traverse(a);
+            }
+
+            internal static void TestPerformance() {
+            }
+        }
+    }
+
+    namespace Threading
+    {
+        internal static class WorkerTest
+        {
+            internal static void Test() {
+                TestCorrectness();
+                TestPerformance();
+            }
+
+            internal static void TestCorrectness() {
+                Worker.WorkUntilTimeout(C0.f, 500);
+                Thread.Sleep(2000);
+                Console.WriteLine();
+                Worker.WorkUntilTimeout(C0.f, C0.h, 500);
+                Thread.Sleep(2000);
+                Console.WriteLine();
+                Worker.WorkUntilTimeout(new C0().g, 3, 500);
+                Thread.Sleep(2000);
+                Console.WriteLine();
+                Worker.WorkUntilTimeout(new C0().g, 5, C0.h, 500);
             }
 
             internal static void TestPerformance() {

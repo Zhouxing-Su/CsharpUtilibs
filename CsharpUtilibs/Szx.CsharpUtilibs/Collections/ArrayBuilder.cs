@@ -25,9 +25,9 @@ namespace Szx.CsharpUtilibs.Collections
 #pragma warning restore 618
 
     /// <summary>
-    /// a specific implementation of ArrayBuilder using <![CDATA[ElementType[]]]> as buffer. 
+    /// a specific implementation of ArrayBuilderTest using <![CDATA[ElementType[]]]> as buffer. 
     /// </summary>
-    [Obsolete("it may not get the best performance, please use ArrayBuilder<T> instead.")]
+    [Obsolete("it may not get the best performance, please use ArrayBuilderTest<T> instead.")]
     public class ArrayBuilderBasedOnArray<ElementType> : IArrayBuilder<ElementType>
     {
         #region Constructor
@@ -45,7 +45,7 @@ namespace Szx.CsharpUtilibs.Collections
 
             Concat(array);
         }
-        #endregion
+        #endregion Constructor
 
         #region Method
         /// <summary>
@@ -127,13 +127,13 @@ namespace Szx.CsharpUtilibs.Collections
 
             concatBuffer = new ElementType[newLength];
         }
-        #endregion
+        #endregion Method
 
         #region Property
-        #endregion
+        #endregion Property
 
         #region Type
-        #endregion
+        #endregion Type
 
         #region Constant
         /// <summary> the initial capacity of $arrays. </summary>
@@ -145,7 +145,7 @@ namespace Szx.CsharpUtilibs.Collections
         /// or save it to $arrays temporarily.
         /// </summary>
         public const int ThresholdArrayLength = 4;
-        #endregion
+        #endregion Constant
 
         #region Field
         /// <summary> hold incoming arrays. </summary>
@@ -161,13 +161,13 @@ namespace Szx.CsharpUtilibs.Collections
         private int concatedElementNum;
         /// <summary> number of elements in buffer. </summary>
         private int totalElementNum;
-        #endregion
+        #endregion Field
     }
 
     /// <summary>
-    /// a specific implementation of ArrayBuilder using <![CDATA[List<ElementType>]]> as buffer. 
+    /// a specific implementation of ArrayBuilderTest using <![CDATA[List<ElementType>]]> as buffer. 
     /// </summary>
-    [Obsolete("it may not get the best performance, please use ArrayBuilder<T> instead.")]
+    [Obsolete("it may not get the best performance, please use ArrayBuilderTest<T> instead.")]
     public class ArrayBuilderBasedOnList<ElementType> : IArrayBuilder<ElementType>
     {
         #region Constructor
@@ -208,7 +208,7 @@ namespace Szx.CsharpUtilibs.Collections
 
             Concat(array);
         }
-        #endregion
+        #endregion Constructor
 
         #region Method
         /// <summary>
@@ -275,13 +275,13 @@ namespace Szx.CsharpUtilibs.Collections
             concatedElementNum = 0;
             totalElementNum = 0;
         }
-        #endregion
+        #endregion Method
 
         #region Property
-        #endregion
+        #endregion Property
 
         #region Type
-        #endregion
+        #endregion Type
 
         #region Constant
         /// <summary> the initial capacity of $arrays. </summary>
@@ -293,7 +293,7 @@ namespace Szx.CsharpUtilibs.Collections
         /// or save it to $arrays temporarily.
         /// </summary>
         public const int ThresholdArrayLength = BufferedCapacity / InitArrayNum;
-        #endregion
+        #endregion Constant
 
         #region Field
         /// <summary> hold incoming arrays. </summary>
@@ -309,6 +309,6 @@ namespace Szx.CsharpUtilibs.Collections
         private int concatedElementNum;
         /// <summary> number of elements in buffer. </summary>
         private int totalElementNum;
-        #endregion
+        #endregion Field
     }
 }

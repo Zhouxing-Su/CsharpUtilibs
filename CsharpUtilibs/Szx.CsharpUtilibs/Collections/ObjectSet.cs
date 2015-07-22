@@ -25,11 +25,11 @@ namespace Szx.CsharpUtilibs.Collections
     public sealed class ObjectSet : ObjectSetUsingConditionalWeakTable { }
 #pragma warning restore 618
 
-    [Obsolete("it may not get the best performance, please use ObjectSet instead.")]
+    [Obsolete("it may not get the best performance, please use ObjectSetTest instead.")]
     public class ObjectSetUsingConditionalWeakTable : IObjectSet
     {
         #region Constructor
-        #endregion
+        #endregion Constructor
 
         #region Method
         public bool IsExist(object obj) {
@@ -44,16 +44,16 @@ namespace Szx.CsharpUtilibs.Collections
                 return true;
             }
         }
-        #endregion
+        #endregion Method
 
         #region Property
-        #endregion
+        #endregion Property
 
         #region Type
-        #endregion
+        #endregion Type
 
         #region Constant
-        #endregion
+        #endregion Constant
 
         #region Field
         /// <summary> internal representation of the set. (only use the key) </summary>
@@ -61,14 +61,14 @@ namespace Szx.CsharpUtilibs.Collections
 
         /// <summary> used to fill the out parameter of ConditionalWeakTable.TryGetValue(). </summary>
         private static object tryGetValue_out0 = null;
-        #endregion
+        #endregion Field
     }
 
-    [Obsolete("it will crash if there are too many objects, please use ObjectSet instead.")]
+    [Obsolete("it will crash if there are too many objects, please use ObjectSetTest instead.")]
     public sealed class ObjectSetUsingObjectIDGenerator : IObjectSet
     {
         #region Constructor
-        #endregion
+        #endregion Constructor
 
         #region Method
         public bool IsExist(object obj) {
@@ -82,20 +82,20 @@ namespace Szx.CsharpUtilibs.Collections
             idGenerator.GetId(obj, out firstTime);
             return firstTime;
         }
-        #endregion
+        #endregion Method
 
         #region Property
-        #endregion
+        #endregion Property
 
         #region Type
-        #endregion
+        #endregion Type
 
         #region Constant
-        #endregion
+        #endregion Constant
 
         #region Field
         /// <summary> internal representation of the set. </summary>
         private ObjectIDGenerator idGenerator = new ObjectIDGenerator();
-        #endregion
+        #endregion Field
     }
 }

@@ -20,7 +20,7 @@ namespace Szx.CsharpUtilibs.Serialization
         public SerializerBase(IVisitor visitor) {
             this.visitor = visitor;
         }
-        #endregion
+        #endregion Constructor
 
         #region Method
         /// <summary> get fields including which in base classes. </summary>
@@ -154,13 +154,13 @@ namespace Szx.CsharpUtilibs.Serialization
             }
             visitor.OnLeaveNode(obj, fieldInfo);
         }
-        #endregion
+        #endregion Method
 
         #region Property
-        #endregion
+        #endregion Property
 
         #region Type
-        #endregion
+        #endregion Type
 
         #region Constant
         public const BindingFlags BindAllFields = BindingFlags.Public
@@ -172,7 +172,7 @@ namespace Szx.CsharpUtilibs.Serialization
         /// <summary> concatenated with $objectID to form the ID string. </summary>
         // TUNEUP[9]: this may conflict if there is a string "@N"
         public const string ObjectIdPrefix = "\uE000@\uF8FF\u0000#";
-        #endregion
+        #endregion Constant
 
         #region Field
         protected IVisitor visitor;
@@ -181,6 +181,6 @@ namespace Szx.CsharpUtilibs.Serialization
         protected int objectID = 0;
         /// <summary> record visited objects and their ID string. </summary>
         protected ConditionalWeakTable<object, string> visitedObjects = new ConditionalWeakTable<object, string>();
-        #endregion
+        #endregion Field
     }
 }

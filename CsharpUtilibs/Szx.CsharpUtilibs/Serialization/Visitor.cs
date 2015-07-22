@@ -50,7 +50,7 @@ namespace Szx.CsharpUtilibs.Serialization
 
         void OnEnterNonLeaf(object obj = null, FieldInfo fieldInfo = null);
         void OnLeaveNonLeaf(object obj = null, FieldInfo fieldInfo = null);
-        #endregion
+        #endregion events on objects
 
         #region events on Collections
         void OnEnterArray(object obj = null);
@@ -67,7 +67,7 @@ namespace Szx.CsharpUtilibs.Serialization
 
         void OnEnterCollection(dynamic collection = null);
         void OnLeaveCollection(dynamic collection = null);
-        #endregion
+        #endregion events on Collections
 
         VisitPolicy Policy { get; set; }
     }
@@ -79,7 +79,7 @@ namespace Szx.CsharpUtilibs.Serialization
             this.textWriter = textWriter;
             this.policy = policy;
         }
-        #endregion
+        #endregion Constructor
 
         #region Method
         private void Display() {
@@ -108,7 +108,7 @@ namespace Szx.CsharpUtilibs.Serialization
         protected void WriteValue(object obj) {
             Write(((obj is string) ? (EnterValuePrompt + obj + LeaveValuePrompt) : (obj)));
         }
-        #endregion
+        #endregion writters
 
         public void OnEnterTraverse(object obj = null) {
             Write(EnterClassPrompt);
@@ -232,7 +232,7 @@ namespace Szx.CsharpUtilibs.Serialization
             BitArray bitArray = (BitArray)obj;
             OnLeaveList((bitArray.Count == 0), true);
         }
-        #endregion
+        #endregion Method
 
         #region Property
         public VisitPolicy Policy {
@@ -247,10 +247,10 @@ namespace Szx.CsharpUtilibs.Serialization
         protected string Indent {
             get { return indent.ToString(); }
         }
-        #endregion
+        #endregion Property
 
         #region Type
-        #endregion
+        #endregion Type
 
         #region Constant
         public enum TraverseState
@@ -292,7 +292,7 @@ namespace Szx.CsharpUtilibs.Serialization
         protected readonly string[] ElementDelimiter = new string[] {
             ClassElementDelimiter, ListElementDelimiter, DictionaryElementDelimiter
         };
-        #endregion
+        #endregion Constant
 
         #region Field
         protected Stack<TraverseState> states = new Stack<TraverseState>(
@@ -304,7 +304,7 @@ namespace Szx.CsharpUtilibs.Serialization
         private TextWriter textWriter;
 
         private VisitPolicy policy;
-        #endregion
+        #endregion Field
     }
 
     //public class BinaryWriterVisitor : IVisitor
@@ -313,22 +313,22 @@ namespace Szx.CsharpUtilibs.Serialization
     //    public BinaryWriterVisitor(Stream s) {
     //        writer = new BinaryWriter(s);
     //    }
-    //    #endregion
+    //    #endregion Constructor
 
     //    #region Method
-    //    #endregion
+    //    #endregion Method
 
     //    #region Property
-    //    #endregion
+    //    #endregion Property
 
     //    #region Type
-    //    #endregion
+    //    #endregion Type
 
     //    #region Constant
-    //    #endregion
+    //    #endregion Constant
 
     //    #region Field
     //    private BinaryWriter writer;
-    //    #endregion
+    //    #endregion Field
     //}
 }
