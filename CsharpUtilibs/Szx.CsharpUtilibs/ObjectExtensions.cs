@@ -1,7 +1,7 @@
 ﻿#define USE_TYPE_EXTENSION_IN_IS_PRINTABLE
 
 
-namespace Szx.CsharpUtilibs
+namespace IDeal.Szx.CsharpUtilibs
 {
     internal static class ObjectExtensions
     {

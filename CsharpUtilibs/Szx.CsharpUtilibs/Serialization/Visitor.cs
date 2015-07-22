@@ -10,9 +10,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 
-namespace Szx.CsharpUtilibs.Serialization
+namespace IDeal.Szx.CsharpUtilibs.Serialization
 {
-    using Szx.CsharpUtilibs.Collections;
+    using IDeal.Szx.CsharpUtilibs.Collections;
 
 
     /// <summary> determine what kinds of objects will be visited. </summary>

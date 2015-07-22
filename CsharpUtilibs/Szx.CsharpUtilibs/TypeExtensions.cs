@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 
-namespace Szx.CsharpUtilibs
+namespace IDeal.Szx.CsharpUtilibs
 {
     internal static class TypeExtensions
     {

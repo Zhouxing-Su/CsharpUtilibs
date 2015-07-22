@@ -4,43 +4,43 @@
         <name>CsharpUtilibs</name>
     </assembly>
     <members>
-        <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilder`1">
+        <member name="T:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilder`1">
             <summary>
             utility for improving performance on frequent one-dimensional array 
             concatenation. Order of elements will be the same as concatenation order.
             </summary>
         </member>
-        <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1">
+        <member name="T:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1">
             <summary>
             a specific implementation of ArrayBuilderTest using <![CDATA[ElementType[]]]> as buffer. 
             </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.InitArrayNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.InitArrayNum">
             <summary> the initial capacity of $arrays. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.InitBufferCapacity">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.InitBufferCapacity">
             <summary> the length of concatBuffer on the first call of ToReadOnlyList(). </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.ThresholdArrayLength">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.ThresholdArrayLength">
             <summary> 
             threshold for deciding whether copy incoming array to buffer directly 
             or save it to $arrays temporarily.
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.#ctor(`0[],System.Int32,System.Int32)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.#ctor(`0[],System.Int32,System.Int32)">
             <summary> initialize buffer. </summary>
             <param name="array"> first array to fill the buffer. </param>
             <param name="concatCount"> possible number of invoking Concat(). </param>
             <param name="bufferCapacity"> possible number of elements. </param>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Concat(`0[])">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Concat(`0[])">
             <summary>
             record the array to be concatenated. <para />
             call Flush() or call Clone() on incoming arrays if you want to
             the elements not be influenced by changes on original arrays.
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.ToReadOnlyList">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.ToReadOnlyList">
             <summary> get concatenated arrays. </summary>
             <returns>
             if all arrays in buffer is null or empty,           <para />
@@ -53,79 +53,79 @@
             do deep/shallow copy themselves on demands.
             </remarks>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Flush">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Flush">
             <summary> do real concatenation on arrays in the buffer. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Clear">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.Clear">
             <summary> 
             reset state of the buffer to allow new types of array concatenation. <para />
             it will remove all buffered elements but keep the resources. 
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.AdjustCapacity(System.Int32)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.AdjustCapacity(System.Int32)">
             <summary> 
             adjust buffer to a size of some power of 2 next to required capacity. <para />
             this can also be used to shrink the buffer to save space. 
             </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.arrays">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.arrays">
             <summary> hold incoming arrays. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatBuffer">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatBuffer">
             <summary> hold the concatenated array. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatedArrayNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatedArrayNum">
             <summary> 
             number of arrays in $arrays which has been concatenated to concatBuffer. 
             it is also the index of next array to be concatenated in $arrays.
             </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatedElementNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.concatedElementNum">
             <summary> capacity of concatBuffer. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.totalElementNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnArray`1.totalElementNum">
             <summary> number of elements in buffer. </summary>
         </member>
-        <member name="T:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1">
+        <member name="T:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1">
             <summary>
             a specific implementation of ArrayBuilderTest using <![CDATA[List<ElementType>]]> as buffer. 
             </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.InitArrayNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.InitArrayNum">
             <summary> the initial capacity of $arrays. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.BufferedCapacity">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.BufferedCapacity">
             <summary> the preserved capacity for incoming short arrays. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.ThresholdArrayLength">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.ThresholdArrayLength">
             <summary> 
             threshold for deciding whether copy incoming array to buffer directly 
             or save it to $arrays temporarily.
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(`0[])">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(`0[])">
             <summary> initialize buffer. </summary>
             <param name="array"> first array to fill the buffer. </param>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(System.Int32,System.Int32)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(System.Int32,System.Int32)">
             <summary> initialize buffer. </summary>
             <param name="concatCount"> possible number of invoking Concat(). </param>
             <param name="bufferCapacity"> possible number of elements. </param>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(`0[],System.Int32,System.Int32)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.#ctor(`0[],System.Int32,System.Int32)">
             <summary> initialize buffer. </summary>
             <param name="array"> first array to fill the buffer. </param>
             <param name="concatCount"> possible number of invoking Concat(). </param>
             <param name="bufferCapacity"> possible number of elements. </param>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Concat(`0[])">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Concat(`0[])">
             <summary>
             record the array to be concatenated. <para />
             call Flush() or call Clone() on incoming arrays if you want to
             the elements not be influenced by changes on original arrays.
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.ToReadOnlyList">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.ToReadOnlyList">
             <summary>
             get concatenated arrays.
             </summary>
@@ -140,60 +140,60 @@
             do deep/shallow copy themselves on demands.
             </remarks>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Flush">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Flush">
             <summary> do real concatenation on arrays in the buffer. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Clear">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.Clear">
             <summary> 
             reset state of the buffer to allow new types of array concatenation. <para />
             it will remove all buffered elements but keep the resources. 
             </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.arrays">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.arrays">
             <summary> hold incoming arrays. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatBuffer">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatBuffer">
             <summary> hold the concatenated array. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatedArrayNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatedArrayNum">
             <summary> 
             number of arrays in $arrays which has been concatenated to concatBuffer. 
             it is also the index of next array to be concatenated in $arrays.
             </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatedElementNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.concatedElementNum">
             <summary> capacity of concatBuffer. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.totalElementNum">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ArrayBuilderBasedOnList`1.totalElementNum">
             <summary> number of elements in buffer. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.ArrayExtensions.GetLengths(System.Array)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayExtensions.GetLengths(System.Array)">
             <summary> put lengths of all dimensions in int[] and return it. </summary>
         </member>
-        <member name="T:Szx.CsharpUtilibs.Collections.IObjectSet">
+        <member name="T:IDeal.Szx.CsharpUtilibs.Collections.IObjectSet">
             <summary> 
             provide simple interface to track objects 
             and check if an object is tracked.
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.IObjectSet.IsExist(System.Object)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.IObjectSet.IsExist(System.Object)">
             <summary> check the existence of an object. </summary>
             <returns> true if object is exist, false otherwise. </returns>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Collections.IObjectSet.Add(System.Object)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Collections.IObjectSet.Add(System.Object)">
             <summary> if the object is not in the set, add it in. else do nothing. </summary>
             <returns> true if successfully added, false otherwise. </returns>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ObjectSetUsingConditionalWeakTable.objectSet">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ObjectSetUsingConditionalWeakTable.objectSet">
             <summary> internal representation of the set. (only use the key) </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ObjectSetUsingConditionalWeakTable.tryGetValue_out0">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ObjectSetUsingConditionalWeakTable.tryGetValue_out0">
             <summary> used to fill the out parameter of ConditionalWeakTable.TryGetValue(). </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Collections.ObjectSetUsingObjectIDGenerator.idGenerator">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.ObjectSetUsingObjectIDGenerator.idGenerator">
             <summary> internal representation of the set. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Test.Collections.ArrayBuilderTest.TestPerformance">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Test.Collections.ArrayBuilderTest.TestPerformance">
             <summary> benchmark result. </summary>
             <example> 
             [Test1]                                                         <para />
@@ -272,22 +272,22 @@
             ====================================
             </example>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Serialization.SerializerBase.ObjectIdPrefix">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Serialization.SerializerBase.ObjectIdPrefix">
             <summary> concatenated with $objectID to form the ID string. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.GetAllFields(System.Object,Szx.CsharpUtilibs.Serialization.VisitPolicy)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Serialization.SerializerBase.GetAllFields(System.Object,IDeal.Szx.CsharpUtilibs.Serialization.VisitPolicy)">
             <summary> get fields including which in base classes. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.GetAllFields(System.Object)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Serialization.SerializerBase.GetAllFields(System.Object)">
             <summary> get fields including which in base classes. </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.Traverse(System.Object)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Serialization.SerializerBase.Traverse(System.Object)">
             <summary> 
             visit every object in the graph except root. <para />
             sequence of events is described in IVisitor interface.
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Serialization.SerializerBase.InternalTraverse(System.Object)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Serialization.SerializerBase.InternalTraverse(System.Object)">
             <summary> internal implementation invoked by Traverse(). </summary>
             <remarks>
             System.Collections categorization: <para />
@@ -332,16 +332,16 @@
             ]]> 
             </remarks>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Serialization.SerializerBase.objectID">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Serialization.SerializerBase.objectID">
             <summary> serial number of objects. </summary>
         </member>
-        <member name="F:Szx.CsharpUtilibs.Serialization.SerializerBase.visitedObjects">
+        <member name="F:IDeal.Szx.CsharpUtilibs.Serialization.SerializerBase.visitedObjects">
             <summary> record visited objects and their ID string. </summary>
         </member>
-        <member name="T:Szx.CsharpUtilibs.Serialization.VisitPolicy">
+        <member name="T:IDeal.Szx.CsharpUtilibs.Serialization.VisitPolicy">
             <summary> determine what kinds of objects will be visited. </summary>
         </member>
-        <member name="T:Szx.CsharpUtilibs.Serialization.IVisitor">
+        <member name="T:IDeal.Szx.CsharpUtilibs.Serialization.IVisitor">
             <summary> define actions on phases in traversing. </summary>
             <remarks> 
             [Attention] "event" in the following description means an event     <para />
@@ -357,13 +357,13 @@
             after an OnEnterNonLeaf() and is followed by an OnLeaveNonLeaf().   <para />
             </remarks>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Serialization.TextWriterVisitor.OnEnterNonLeaf(System.Object,System.Reflection.FieldInfo)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Serialization.TextWriterVisitor.OnEnterNonLeaf(System.Object,System.Reflection.FieldInfo)">
             <summary>
             since it is agnostic after entering it, the top of the state stack 
             can be changed by other event.
             </summary>
         </member>
-        <member name="M:Szx.CsharpUtilibs.Serialization.TextWriterVisitor.OnLeaveList(System.Boolean,System.Boolean)">
+        <member name="M:IDeal.Szx.CsharpUtilibs.Serialization.TextWriterVisitor.OnLeaveList(System.Boolean,System.Boolean)">
             <summary> 
             agent for list like collections whose type is incompatible with
             IList. As the list object is not in use currently.

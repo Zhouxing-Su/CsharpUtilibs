@@ -8,11 +8,11 @@ using System.Threading;
 #pragma warning disable 618
 
 
-namespace Szx.CsharpUtilibs.Test
+namespace IDeal.Szx.CsharpUtilibs.Test
 {
-    using Szx.CsharpUtilibs.Collections;
-    using Szx.CsharpUtilibs.Serialization;
-    using Szx.CsharpUtilibs.Threading;
+    using IDeal.Szx.CsharpUtilibs.Collections;
+    using IDeal.Szx.CsharpUtilibs.Serialization;
+    using IDeal.Szx.CsharpUtilibs.Threading;
 
 
     internal class Program

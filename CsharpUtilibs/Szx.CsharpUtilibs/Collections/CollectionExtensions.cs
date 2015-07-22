@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace Szx.CsharpUtilibs.Collections
+namespace IDeal.Szx.CsharpUtilibs.Collections
 {
     internal static class ArrayExtensions
     {

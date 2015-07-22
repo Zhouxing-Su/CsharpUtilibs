@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 
 
-namespace Szx.CsharpUtilibs.Test
+namespace IDeal.Szx.CsharpUtilibs.Test
 {
     internal class C0
     {

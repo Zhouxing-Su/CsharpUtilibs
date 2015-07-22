@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Szx.CsharpUtilibs.Threading
+namespace IDeal.Szx.CsharpUtilibs.Threading
 {
     public static class Worker
     {

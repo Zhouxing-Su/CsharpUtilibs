@@ -5,11 +5,11 @@ using System.Linq;
 using System.Reflection;
 
 
-namespace Szx.CsharpUtilibs.Serialization
+namespace IDeal.Szx.CsharpUtilibs.Serialization
 {
     using System.Runtime.CompilerServices;
-    using Szx.CsharpUtilibs.Collections;
-    using Szx.CsharpUtilibs.Test;
+    using IDeal.Szx.CsharpUtilibs.Collections;
+    using IDeal.Szx.CsharpUtilibs.Test;
 
 
     public class SerializerBase

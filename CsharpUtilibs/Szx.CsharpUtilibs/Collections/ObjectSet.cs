@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 
-namespace Szx.CsharpUtilibs.Collections
+namespace IDeal.Szx.CsharpUtilibs.Collections
 {
     /// <summary> 
     /// provide simple interface to track objects 

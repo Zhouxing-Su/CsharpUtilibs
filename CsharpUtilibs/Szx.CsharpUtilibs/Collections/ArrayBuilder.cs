@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace Szx.CsharpUtilibs.Collections
+namespace IDeal.Szx.CsharpUtilibs.Collections
 {
     public interface IArrayBuilder<ElementType>
     {

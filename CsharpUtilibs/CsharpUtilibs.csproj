@@ -7,11 +7,11 @@
     <ProjectGuid>{5AEB42AD-771C-4AFB-90BB-D988609BCF08}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Szx</RootNamespace>
+    <RootNamespace>IDeal</RootNamespace>
     <AssemblyName>CsharpUtilibs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.1.83</AssemblyVersion>
+    <AssemblyVersion>1.0.1.86</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,7 +36,7 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Szx.CsharpUtilibs.Test.Program</StartupObject>
+    <StartupObject>IDeal.Szx.CsharpUtilibs.Test.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
