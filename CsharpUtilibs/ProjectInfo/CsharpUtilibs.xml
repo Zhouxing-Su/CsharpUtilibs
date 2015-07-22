@@ -373,5 +373,9 @@
             if (isEmpty == true), isElementPrimitive can be any value. 
             </param>
         </member>
+        <member name="M:IDeal.Szx.CsharpUtilibs.Threading.Worker.WorkUntilTimeout(System.Threading.ThreadStart,System.Int32)">
+            <summary> run method in synchronized way with a timeout. </summary>
+            <returns> true if the work is finished within timeout. </returns>
+        </member>
     </members>
 </doc>
