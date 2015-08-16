@@ -19,11 +19,13 @@ namespace IDeal.Szx.CsharpUtilibs.Test
     {
         private static void Main(string[] args) {
             //Collections.ArrayBuilderTest.Test();
+            //Collections.MultiDimArrayTest.Test();
             //Collections.ObjectSetTest.Test();
+            Collections.ReadOnlySetTest.Test();
 
             //Serialization.SerializerTest.Test();
 
-            Threading.WorkerTest.Test();
+            //Threading.WorkerTest.Test();
         }
     }
 
@@ -65,7 +67,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
                     }
                     Console.WriteLine();
 
-                    Console.WriteLine("concat empty array:");
+                    Console.WriteLine("concat empty data:");
                     arrayBuilder.Concat(new int[0]);
                     result = arrayBuilder.ToReadOnlyList();
                     foreach (int item in result) {
@@ -94,7 +96,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
                     }
                     Console.WriteLine();
 
-                    Console.WriteLine("concat empty array:");
+                    Console.WriteLine("concat empty data:");
                     arrayBuilder.Concat(new int[0]);
                     result = arrayBuilder.ToReadOnlyList();
                     foreach (int item in result) {
@@ -204,7 +206,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
 
                     //sw.Restart();
                     //for (int i = 0; i < LoopCount; i++) {
-                    //    ra = ra.Concat(array).ToArray();
+                    //    ra = ra.Concat(data).ToArray();
                     //    if ((i % 10) == 0) {
                     //        if ((i % 100) == 0) {
                     //            ra = new char[0];
@@ -347,9 +349,9 @@ namespace IDeal.Szx.CsharpUtilibs.Test
                 objSet = new ObjectSetUsingConditionalWeakTable();
                 for (int i = 0; i < 10000000; i++) {
                     object obj = new object();
-                    if (objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
+                    if (objSet.Contains(obj)) { Console.WriteLine("bug!!!"); }
                     if (!objSet.Add(obj)) { Console.WriteLine("bug!!!"); }
-                    if (!objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
+                    if (!objSet.Contains(obj)) { Console.WriteLine("bug!!!"); }
                 }
                 sw.Stop();
                 Console.WriteLine(sw.ElapsedMilliseconds);
@@ -359,12 +361,75 @@ namespace IDeal.Szx.CsharpUtilibs.Test
                 objSet = new ObjectSetUsingObjectIDGenerator();
                 for (int i = 0; i < 10000000; i++) {
                     object obj = new object();
-                    if (objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
+                    if (objSet.Contains(obj)) { Console.WriteLine("bug!!!"); }
                     if (!objSet.Add(obj)) { Console.WriteLine("bug!!!"); }
-                    if (!objSet.IsExist(obj)) { Console.WriteLine("bug!!!"); }
+                    if (!objSet.Contains(obj)) { Console.WriteLine("bug!!!"); }
                 }
                 sw.Stop();
                 Console.WriteLine(sw.ElapsedMilliseconds);
+            }
+
+            internal static void TestPerformance() {
+            }
+        }
+
+        internal static class MultiDimArrayTest
+        {
+            internal static void Test() {
+                TestCorrectness();
+                TestPerformance();
+            }
+
+            internal static void TestCorrectness() {
+                MultiDimArray<int> a = new MultiDimArray<int>(2, 3, 4, 3, 2);
+                for (int i = 0; i < a.Length; i++) {
+                    a[i] = i;
+                    Console.Write(a[i] + " ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+                for (int i = 0; i < a.Lengths[0] * a.Lengths[1]; i++) {
+                    for (int j = 0; j < a.Lengths[2]; j++) {
+                        for (int k = 0; k < a.Lengths[3] * a.Lengths[4]; k++) {
+                            a[i, j, k] = k;
+                            Console.Write(a[i, j, k] + " ");
+                        }
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+                for (int i = 0; i < a.Lengths[0]; i++) {
+                    for (int j = 0; j < a.Lengths[1]; j++) {
+                        for (int k = 0; k < a.Lengths[2]; k++) {
+                            for (int l = 0; l < a.Lengths[3]; l++) {
+                                for (int m = 0; m < a.Lengths[4]; m++) {
+                                    a[i, j, k, l, m] = m + l;
+                                    Console.Write(a[i, j, k, l, m] + " ");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            internal static void TestPerformance() {
+            }
+        }
+
+        internal static class ReadOnlySetTest
+        {
+            internal static void Test() {
+                TestCorrectness();
+                TestPerformance();
+            }
+
+            internal static void TestCorrectness() {
+                ISet<int> set = new HashSet<int>() { 1, 2, 3, 4, 5 };
+
+                ReadOnlySet<int> roset = new ReadOnlySet<int>(set);
+                //roset.Add(6);     // should be error
+                Console.WriteLine(roset.Contains(1));  // should be correct
+                Console.WriteLine(roset.Count);
             }
 
             internal static void TestPerformance() {
@@ -407,10 +472,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
                 Worker.WorkUntilTimeout(C0.f, C0.h, 500);
                 Thread.Sleep(2000);
                 Console.WriteLine();
-                Worker.WorkUntilTimeout(new C0().g, 3, 500);
-                Thread.Sleep(2000);
-                Console.WriteLine();
-                Worker.WorkUntilTimeout(new C0().g, 5, C0.h, 500);
+                Worker.WorkUntilTimeout(C0.f, () => { new C0().g(3); }, C0.h, 500);
             }
 
             internal static void TestPerformance() {

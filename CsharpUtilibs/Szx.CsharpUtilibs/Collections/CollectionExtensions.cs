@@ -18,6 +18,17 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
             }
             return lengths;
         }
+
+        public static void Fill<T>(this IList<T> list, T value) {
+            for (int i = 0; i < list.Count; i++) {
+                list[i] = value;
+            }
+        }
+        public static void Fill<T>(this IList<T> list, T value, int offset, int length) {
+            for (int i = offset; i < length; i++) {
+                list[i] = value;
+            }
+        }
     }
 
     internal static class QueueOrStackExtension

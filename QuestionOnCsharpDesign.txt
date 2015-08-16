@@ -4,4 +4,14 @@
 		will generated a non-generic version `GT : GT<object>` of it.
 	just like implement `operator+` will automatically implement `+=`.
 
-2.	
+2.	there is already a delegate Action for methods with no parameters 
+	and no return value, so why creating delegate ThreadStart then?
+
+3.	is it possible to write documents for a group of methods?
+	especially overload methods. or there will be lots of redundant.
+
+4.	why almost all collections implement ICollection except HashSet<T>?
+	why there is IReadOnlyList<T> and IReadOnlyDictionary<T> but no IReadOnlySet<T>?
+	why the Collection library can not be 'symmetric'?
+
+5.	

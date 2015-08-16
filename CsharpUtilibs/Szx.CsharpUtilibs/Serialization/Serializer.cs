@@ -83,7 +83,7 @@ namespace IDeal.Szx.CsharpUtilibs.Serialization
         ///         SortedSet<T> : ISet<T>, ICollection<T>, IEnumerable<T>, ICollection, IEnumerable, ISerializable, 
         ///             IDeserializationCallback  
         ///         
-        ///     BitArray  :  BitArray(Int32[]) <--> void CopyTo(Array array, int index) + foreach
+        ///     BitArray  :  BitArray(Int32[]) <--> void CopyTo(Array data, int index) + foreach
         ///         BitArray : ICollection, IEnumerable, ICloneable  
         ///         
         ///     Stack | Stack<T>  :  void Push( Object obj ) <--> Object[] ToArray() + foreach

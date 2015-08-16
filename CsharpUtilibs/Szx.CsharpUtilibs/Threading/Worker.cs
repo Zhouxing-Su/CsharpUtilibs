@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 
 namespace IDeal.Szx.CsharpUtilibs.Threading
 {
     public static class Worker
     {
-        /// <summary> run method in synchronized way with a timeout. </summary>
+        /// <summary> run method in synchronized way with a non-negative timeout. </summary>
         /// <returns> true if the work is finished within timeout. </returns>
-        public static bool WorkUntilTimeout(
-            ThreadStart work,
-            int millisecondsTimeout = Timeout.Infinite) {
+        /// <remarks> 
+        /// Timeout.Infinite is not supported (you should call your method directly). <para />
+        /// use lambda expression to wrap the parameterized methods. 
+        /// </remarks>
+        public static bool WorkUntilTimeout(ThreadStart work,
+            int millisecondsTimeout) {
+            if (millisecondsTimeout < 0) { return false; }
             Thread thread = new Thread(work);
             thread.Start();
             if (!thread.Join(millisecondsTimeout)) {
@@ -24,22 +24,12 @@ namespace IDeal.Szx.CsharpUtilibs.Threading
             return true;
         }
 
-        public static bool WorkUntilTimeout(
-            ParameterizedThreadStart work, object workArg,
-            int millisecondsTimeout = Timeout.Infinite) {
-            Thread thread = new Thread(work);
-            thread.Start(workArg);
-            if (!thread.Join(millisecondsTimeout)) {
-                thread.Abort();
+        public static bool WorkUntilTimeout(Action work, Action onAbort,
+            int millisecondsTimeout) {
+            if (millisecondsTimeout < 0) {
+                onAbort();
                 return false;
             }
-            return true;
-        }
-
-        public static bool WorkUntilTimeout(
-            Action work,
-            Action onAbort,
-            int millisecondsTimeout = Timeout.Infinite) {
             Thread thread = new Thread(() => {
                 try {
                     work();
@@ -56,17 +46,23 @@ namespace IDeal.Szx.CsharpUtilibs.Threading
         }
 
         public static bool WorkUntilTimeout(
-            Action<object> work, object workArg,
-            Action onAbort,
-            int millisecondsTimeout = Timeout.Infinite) {
-            Thread thread = new Thread((object obj) => {
+            Action work, Action onAbort, Action onExit,
+            int millisecondsTimeout) {
+            if (millisecondsTimeout < 0) {
+                onAbort();
+                onExit();
+                return false;
+            }
+            Thread thread = new Thread(() => {
                 try {
-                    work(obj);
+                    work();
                 } catch (ThreadAbortException) {
                     onAbort();
+                } finally {
+                    onExit();
                 }
             });
-            thread.Start(workArg);
+            thread.Start();
             if (!thread.Join(millisecondsTimeout)) {
                 thread.Abort();
                 return false;

@@ -14,7 +14,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
     {
         /// <summary> check the existence of an object. </summary>
         /// <returns> true if object is exist, false otherwise. </returns>
-        bool IsExist(object obj);
+        bool Contains(object obj);
 
         /// <summary> if the object is not in the set, add it in. else do nothing. </summary>
         /// <returns> true if successfully added, false otherwise. </returns>
@@ -32,12 +32,12 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
         #endregion Constructor
 
         #region Method
-        public bool IsExist(object obj) {
+        public bool Contains(object obj) {
             return objectSet.TryGetValue(obj, out tryGetValue_out0);
         }
 
         public bool Add(object obj) {
-            if (IsExist(obj)) {
+            if (Contains(obj)) {
                 return false;
             } else {
                 objectSet.Add(obj, null);
@@ -71,7 +71,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
         #endregion Constructor
 
         #region Method
-        public bool IsExist(object obj) {
+        public bool Contains(object obj) {
             bool firstTime;
             idGenerator.HasId(obj, out firstTime);
             return !firstTime;

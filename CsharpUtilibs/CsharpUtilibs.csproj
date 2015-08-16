@@ -11,7 +11,7 @@
     <AssemblyName>CsharpUtilibs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyVersion>1.0.1.87</AssemblyVersion>
+    <AssemblyVersion>1.0.1.119</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="Szx.CsharpUtilibs\Collections\ArrayBuilder.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\CollectionExtensions.cs" />
+    <Compile Include="Szx.CsharpUtilibs\Collections\ReadOnlySet.cs" />
+    <Compile Include="Szx.CsharpUtilibs\Collections\MultiDimArray.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\ObjectSet.cs" />
     <Compile Include="Szx.CsharpUtilibs\ObjectExtensions.cs" />
     <Compile Include="Szx.CsharpUtilibs\Test\Program.cs" />

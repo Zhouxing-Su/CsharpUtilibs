@@ -170,6 +170,18 @@
         <member name="M:IDeal.Szx.CsharpUtilibs.Collections.ArrayExtensions.GetLengths(System.Array)">
             <summary> put lengths of all dimensions in int[] and return it. </summary>
         </member>
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.MultiDimArray`1.data">
+            <summary> real data. </summary>
+        </member>
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.MultiDimArray`1.lengths">
+            <summary> length of each dimension. </summary>
+        </member>
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.MultiDimArray`1.steps">
+            <summary> number of index increment when certain dimension increasing. </summary>
+        </member>
+        <member name="F:IDeal.Szx.CsharpUtilibs.Collections.MultiDimArray`1.length">
+            <summary> total length. </summary>
+        </member>
         <member name="T:IDeal.Szx.CsharpUtilibs.Collections.IObjectSet">
             <summary> 
             provide simple interface to track objects 
@@ -319,7 +331,7 @@
                     SortedSet<T> : ISet<T>, ICollection<T>, IEnumerable<T>, ICollection, IEnumerable, ISerializable, 
                         IDeserializationCallback  
                     
-                BitArray  :  BitArray(Int32[]) <--> void CopyTo(Array array, int index) + foreach
+                BitArray  :  BitArray(Int32[]) <--> void CopyTo(Array data, int index) + foreach
                     BitArray : ICollection, IEnumerable, ICloneable  
                     
                 Stack | Stack<T>  :  void Push( Object obj ) <--> Object[] ToArray() + foreach
