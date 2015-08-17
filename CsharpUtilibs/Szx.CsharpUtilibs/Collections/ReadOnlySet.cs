@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 
@@ -13,35 +14,35 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
         #region Method
         #region not implemented
         bool ISet<T>.Add(T item) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         void ISet<T>.ExceptWith(IEnumerable<T> other) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         void ISet<T>.IntersectWith(IEnumerable<T> other) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         void ISet<T>.SymmetricExceptWith(IEnumerable<T> other) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         void ISet<T>.UnionWith(IEnumerable<T> other) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         void ICollection<T>.Add(T item) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         void ICollection<T>.Clear() {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         bool ICollection<T>.Remove(T item) {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         #endregion not implemented
 

@@ -10,22 +10,25 @@ using System.Threading;
 
 namespace IDeal.Szx.CsharpUtilibs.Test
 {
+    using IDeal.Szx.CsharpUtilibs;
     using IDeal.Szx.CsharpUtilibs.Collections;
     using IDeal.Szx.CsharpUtilibs.Serialization;
-    using IDeal.Szx.CsharpUtilibs.Threading;
+    using IDeal.Szx.CsharpUtilibs.OS;
+    using IDeal.Szx.CsharpUtilibs.OS.Threading;
 
 
     internal class Program
     {
         private static void Main(string[] args) {
             //Collections.ArrayBuilderTest.Test();
-            //Collections.MultiDimArrayTest.Test();
+            Collections.MultiDimArrayTest.Test();
             //Collections.ObjectSetTest.Test();
-            Collections.ReadOnlySetTest.Test();
+            //Collections.ReadOnlySetTest.Test();
 
-            //Serialization.SerializerTest.Test();
+            Serialization.SerializerTest.Test();
 
-            //Threading.WorkerTest.Test();
+            //OS.ArgsProcessorTest.Test();
+            //OS.Threading.WorkerTest.Test();
         }
     }
 
@@ -456,9 +459,9 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    namespace Threading
+    namespace OS
     {
-        internal static class WorkerTest
+        internal static class ArgsProcessorTest
         {
             internal static void Test() {
                 TestCorrectness();
@@ -466,16 +469,102 @@ namespace IDeal.Szx.CsharpUtilibs.Test
             }
 
             internal static void TestCorrectness() {
-                Worker.WorkUntilTimeout(C0.f, 500);
-                Thread.Sleep(2000);
+                ArgsProcessor ap = new ArgsProcessor();
+                ap.Process(
+                    new string[] { "cc", "-o", "test", "test.c", "-h", "-O3", "--verbose", "test.cc.log" },
+                    new string[] { "-o", "--verbose" },
+                    new string[] { "/h", "-h", "-O3" });
+
+                foreach (var item in ap.PlainArgs) {
+                    Console.Write(item + " ");
+                }
                 Console.WriteLine();
-                Worker.WorkUntilTimeout(C0.f, C0.h, 500);
-                Thread.Sleep(2000);
+                foreach (var item in ap.MapArgs) {
+                    Console.Write(item + " ");
+                }
                 Console.WriteLine();
-                Worker.WorkUntilTimeout(C0.f, () => { new C0().g(3); }, C0.h, 500);
+                foreach (var item in ap.SwitchArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+
+                ap.Process(
+                    new string[] { },
+                    new string[] { "-o", "--verbose" });
+
+                foreach (var item in ap.PlainArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                foreach (var item in ap.MapArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                foreach (var item in ap.SwitchArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+
+                ap.Process(null);
+                foreach (var item in ap.PlainArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                foreach (var item in ap.MapArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                foreach (var item in ap.SwitchArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+
+                ap.Process(
+                    new string[] { "cc", "-o", "test", "test.c", "-h", "-O3", "--verbose", "test.cc.log" },
+                    switchs: new string[] { "/h", "-h", "-O3" });
+                foreach (var item in ap.PlainArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                foreach (var item in ap.MapArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                foreach (var item in ap.SwitchArgs) {
+                    Console.Write(item + " ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
             }
 
             internal static void TestPerformance() {
+            }
+        }
+
+        namespace Threading
+        {
+            internal static class WorkerTest
+            {
+                internal static void Test() {
+                    TestCorrectness();
+                    TestPerformance();
+                }
+
+                internal static void TestCorrectness() {
+                    Worker.WorkUntilTimeout(C0.f, 500);
+                    Thread.Sleep(2000);
+                    Console.WriteLine();
+                    Worker.WorkUntilTimeout(C0.f, C0.h, 500);
+                    Thread.Sleep(2000);
+                    Console.WriteLine();
+                    Worker.WorkUntilTimeout(C0.f, () => { new C0().g(3); }, C0.h, 500);
+                }
+
+                internal static void TestPerformance() {
+                }
             }
         }
     }

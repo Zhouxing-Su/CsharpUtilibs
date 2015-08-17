@@ -2,7 +2,7 @@
 using System.Threading;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Threading
+namespace IDeal.Szx.CsharpUtilibs.OS.Threading
 {
     public static class Worker
     {

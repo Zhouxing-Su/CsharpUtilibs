@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 
 namespace IDeal.Szx.CsharpUtilibs.Serialization
 {
-    using System.Runtime.CompilerServices;
     using IDeal.Szx.CsharpUtilibs.Collections;
     using IDeal.Szx.CsharpUtilibs.Test;
 
