@@ -29,6 +29,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
 
             //OS.ArgsProcessorTest.Test();
             //OS.Threading.WorkerTest.Test();
+            //OS.Threading.ListenerTest.Test();
         }
     }
 
@@ -561,6 +562,23 @@ namespace IDeal.Szx.CsharpUtilibs.Test
                     Thread.Sleep(2000);
                     Console.WriteLine();
                     Worker.WorkUntilTimeout(C0.f, () => { new C0().g(3); }, C0.h, 500);
+                }
+
+                internal static void TestPerformance() {
+                }
+            }
+
+            internal static class ListenerTest
+            {
+                internal static void Test() {
+                    TestCorrectness();
+                    TestPerformance();
+                }
+
+                internal static void TestCorrectness() {
+                    Listener.waitTerminationCodeAsync("async");
+                    Console.WriteLine("waiting...");
+                    Listener.waitTerminationCode("sync");
                 }
 
                 internal static void TestPerformance() {

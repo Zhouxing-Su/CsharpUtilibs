@@ -55,6 +55,7 @@
     <Compile Include="Szx.CsharpUtilibs\Collections\MultiDimArray.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\ObjectSet.cs" />
     <Compile Include="Szx.CsharpUtilibs\ObjectExtensions.cs" />
+    <Compile Include="Szx.CsharpUtilibs\OS\Threading\Listener.cs" />
     <Compile Include="Szx.CsharpUtilibs\Test\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Szx.CsharpUtilibs\Serialization\Serializer.cs" />
