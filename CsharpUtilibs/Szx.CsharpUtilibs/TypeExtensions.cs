@@ -3,10 +3,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 
-namespace IDeal.Szx.CsharpUtilibs
-{
-    internal static class TypeExtensions
-    {
+namespace IDeal.Szx.CsharpUtilibs {
+    internal static class TypeExtensions {
         public static bool IsPrintable(this Type t) {
             return (t.IsPrimitive || (t == typeof(string)));
         }
@@ -16,8 +14,7 @@ namespace IDeal.Szx.CsharpUtilibs
         }
     }
 
-    internal static class FieldInfoExtensions
-    {
+    internal static class FieldInfoExtensions {
         private static char[] BackingFieldNameDelimiters = new char[] { '<', '>' };
 
         // TUNEUP[5]: use a more compatible/portable way to achieve it!

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace IDeal.Szx.CsharpUtilibs.OS
-{
+namespace IDeal.Szx.CsharpUtilibs.System {
     using IDeal.Szx.CsharpUtilibs.Collections;
 
 
@@ -15,8 +14,7 @@ namespace IDeal.Szx.CsharpUtilibs.OS
     ///     (the values are predefined)
     /// </summary>
     /// <remarks> if there are plain arguments only, this class is useless. </remarks>
-    public class ArgsProcessor
-    {
+    public class ArgsProcessor {
         #region Constructor
         #endregion Constructor
 

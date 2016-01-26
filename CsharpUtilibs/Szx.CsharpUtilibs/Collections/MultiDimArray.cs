@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Collections
-{
-    public class MultiDimArray<T> : IList<T>
-    {
+namespace IDeal.Szx.CsharpUtilibs.Collections {
+    public class MultiDimArray<T> : IList<T> {
         #region Constructor
         public MultiDimArray(params int[] lengths) {
             this.lengths = (int[])lengths.Clone();
@@ -71,7 +69,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
 
         private int GetStep(params int[] index) {
             int step = 0;
-            for (int i = 0; i < index.Length; ) {
+            for (int i = 0; i < index.Length;) {
                 int tmp = steps[i];
                 tmp *= (index[index.Length - (++i)]);
                 step += tmp;
@@ -117,11 +115,6 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
         #endregion Property
 
         #region Type
-        public struct Indexer
-        {
-            int index;
-            int dimLength;
-        }
         #endregion Type
 
         #region Constant

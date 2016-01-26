@@ -48,26 +48,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Szx.CsharpUtilibs\OS\ArgsProcessor.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Szx.CsharpUtilibs\System\ArgsProcessor.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\ArrayBuilder.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\CollectionExtensions.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\ReadOnlySet.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\MultiDimArray.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\ObjectSet.cs" />
     <Compile Include="Szx.CsharpUtilibs\ObjectExtensions.cs" />
-    <Compile Include="Szx.CsharpUtilibs\OS\Threading\Listener.cs" />
+    <Compile Include="Szx.CsharpUtilibs\System\EmbeddedResources.cs" />
+    <Compile Include="Szx.CsharpUtilibs\System\Threading\Listener.cs" />
     <Compile Include="Szx.CsharpUtilibs\Test\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Szx.CsharpUtilibs\Serialization\Serializer.cs" />
     <Compile Include="Szx.CsharpUtilibs\Serialization\Visitor.cs" />
     <Compile Include="Szx.CsharpUtilibs\Test\TestCases.cs" />
-    <Compile Include="Szx.CsharpUtilibs\OS\Threading\Worker.cs" />
+    <Compile Include="Szx.CsharpUtilibs\System\Threading\Worker.cs" />
     <Compile Include="Szx.CsharpUtilibs\TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

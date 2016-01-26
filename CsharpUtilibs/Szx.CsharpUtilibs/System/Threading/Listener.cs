@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading;
 
-namespace IDeal.Szx.CsharpUtilibs.OS.Threading
-{
-    public class Listener
-    {
+
+namespace IDeal.Szx.CsharpUtilibs.System.Threading {
+    public class Listener {
         public static void waitTerminationCodeAsync(string code) {
             Thread waitTermination = new Thread(() => {
                 while (Console.ReadLine() != code) { }

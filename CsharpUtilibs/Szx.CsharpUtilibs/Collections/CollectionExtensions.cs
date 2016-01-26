@@ -6,10 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Collections
-{
-    internal static class ArrayExtensions
-    {
+namespace IDeal.Szx.CsharpUtilibs.Collections {
+    internal static class ArrayExtensions {
         /// <summary> put lengths of all dimensions in int[] and return it. </summary>
         public static int[] GetLengths(this Array array) {
             int[] lengths = new int[array.Rank];
@@ -31,8 +29,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
         }
     }
 
-    internal static class QueueOrStackExtension
-    {
+    internal static class QueueOrStackExtension {
         public static void Add(this Stack s, object obj) {
             s.Push(obj);
         }
@@ -47,8 +44,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
         }
     }
 
-    internal static class IEnumerableExtensions
-    {
+    internal static class IEnumerableExtensions {
         public static object First(this IEnumerable collection) {
             IEnumerator enumerator = collection.GetEnumerator();
             enumerator.MoveNext();

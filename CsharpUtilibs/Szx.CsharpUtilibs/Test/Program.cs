@@ -8,17 +8,15 @@ using System.Threading;
 #pragma warning disable 618
 
 
-namespace IDeal.Szx.CsharpUtilibs.Test
-{
+namespace IDeal.Szx.CsharpUtilibs.Test {
     using IDeal.Szx.CsharpUtilibs;
     using IDeal.Szx.CsharpUtilibs.Collections;
     using IDeal.Szx.CsharpUtilibs.Serialization;
-    using IDeal.Szx.CsharpUtilibs.OS;
-    using IDeal.Szx.CsharpUtilibs.OS.Threading;
+    using IDeal.Szx.CsharpUtilibs.System;
+    using IDeal.Szx.CsharpUtilibs.System.Threading;
 
 
-    internal class Program
-    {
+    internal class Program {
         private static void Main(string[] args) {
             //Collections.ArrayBuilderTest.Test();
             Collections.MultiDimArrayTest.Test();
@@ -27,9 +25,9 @@ namespace IDeal.Szx.CsharpUtilibs.Test
 
             Serialization.SerializerTest.Test();
 
-            //OS.ArgsProcessorTest.Test();
-            //OS.Threading.WorkerTest.Test();
-            //OS.Threading.ListenerTest.Test();
+            //System.ArgsProcessorTest.Test();
+            //System.Threading.WorkerTest.Test();
+            //System.Threading.ListenerTest.Test();
         }
     }
 
@@ -47,10 +45,8 @@ namespace IDeal.Szx.CsharpUtilibs.Test
     //    }
     //}
 
-    namespace Collections
-    {
-        internal static class ArrayBuilderTest
-        {
+    namespace Collections {
+        internal static class ArrayBuilderTest {
             internal static void Test() {
                 TestCorrectness();
                 TestPerformance();
@@ -338,8 +334,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
             }
         }
 
-        internal static class ObjectSetTest
-        {
+        internal static class ObjectSetTest {
             internal static void Test() {
                 TestCorrectness();
                 TestPerformance();
@@ -377,8 +372,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
             }
         }
 
-        internal static class MultiDimArrayTest
-        {
+        internal static class MultiDimArrayTest {
             internal static void Test() {
                 TestCorrectness();
                 TestPerformance();
@@ -420,8 +414,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
             }
         }
 
-        internal static class ReadOnlySetTest
-        {
+        internal static class ReadOnlySetTest {
             internal static void Test() {
                 TestCorrectness();
                 TestPerformance();
@@ -441,10 +434,8 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    namespace Serialization
-    {
-        internal static class SerializerTest
-        {
+    namespace Serialization {
+        internal static class SerializerTest {
             internal static void Test() {
                 TestCorrectness();
                 TestPerformance();
@@ -460,10 +451,8 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    namespace OS
-    {
-        internal static class ArgsProcessorTest
-        {
+    namespace OS {
+        internal static class ArgsProcessorTest {
             internal static void Test() {
                 TestCorrectness();
                 TestPerformance();
@@ -545,10 +534,8 @@ namespace IDeal.Szx.CsharpUtilibs.Test
             }
         }
 
-        namespace Threading
-        {
-            internal static class WorkerTest
-            {
+        namespace Threading {
+            internal static class WorkerTest {
                 internal static void Test() {
                     TestCorrectness();
                     TestPerformance();
@@ -568,8 +555,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
                 }
             }
 
-            internal static class ListenerTest
-            {
+            internal static class ListenerTest {
                 internal static void Test() {
                     TestCorrectness();
                     TestPerformance();

@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Collections
-{
-    public interface IArrayBuilder<ElementType>
-    {
+namespace IDeal.Szx.CsharpUtilibs.Collections {
+    public interface IArrayBuilder<ElementType> {
         void Concat(ElementType[] array);
         IReadOnlyList<ElementType> ToReadOnlyList();
         void Clear();
@@ -28,8 +26,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
     /// a specific implementation of ArrayBuilderTest using <![CDATA[ElementType[]]]> as buffer. 
     /// </summary>
     [Obsolete("it may not get the best performance, please use ArrayBuilderTest<T> instead.")]
-    public class ArrayBuilderBasedOnArray<ElementType> : IArrayBuilder<ElementType>
-    {
+    public class ArrayBuilderBasedOnArray<ElementType> : IArrayBuilder<ElementType> {
         #region Constructor
         /// <summary> initialize buffer. </summary>
         /// <param name="array"> first array to fill the buffer. </param>
@@ -168,8 +165,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
     /// a specific implementation of ArrayBuilderTest using <![CDATA[List<ElementType>]]> as buffer. 
     /// </summary>
     [Obsolete("it may not get the best performance, please use ArrayBuilderTest<T> instead.")]
-    public class ArrayBuilderBasedOnList<ElementType> : IArrayBuilder<ElementType>
-    {
+    public class ArrayBuilderBasedOnList<ElementType> : IArrayBuilder<ElementType> {
         #region Constructor
         /// <summary> initialize buffer. </summary>
         /// <param name="array"> first array to fill the buffer. </param>

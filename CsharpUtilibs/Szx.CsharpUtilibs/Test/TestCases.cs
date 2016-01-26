@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Threading;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Test
-{
-    internal class C0
-    {
+namespace IDeal.Szx.CsharpUtilibs.Test {
+    internal class C0 {
         public static void f() {
             Console.WriteLine("in f()");
             Thread.Sleep(100000);
@@ -27,8 +25,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    internal class C1
-    {
+    internal class C1 {
         string id = "C1";
         int[] a = new int[0];
         string[] s = new string[2] { null, "zz" };
@@ -45,8 +42,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    internal class C2
-    {
+    internal class C2 {
         public C2() { Id = "C2"; }
         string Id { get; set; }
 
@@ -55,8 +51,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    internal class C3 : C2
-    {
+    internal class C3 : C2 {
         string id = "C3";
         HashSet<char> h = new HashSet<char> { 's', 'z', 'x' };
 
@@ -65,8 +60,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    internal class C4
-    {
+    internal class C4 {
         string id = "C4";
         List<int> l = new List<int> { 1, 2, 3 };
 
@@ -75,10 +69,9 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    internal class C5
-    {
+    internal class C5 {
         string id = "C5";
-        Dictionary<int, string> d = new Dictionary<int, string> { 
+        Dictionary<int, string> d = new Dictionary<int, string> {
             {1, "szx"}, {3,"cyj"}, {2,"lzp"}, {100,"bwb"}
         };
 
@@ -87,8 +80,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test
         }
     }
 
-    internal class C6
-    {
+    internal class C6 {
         string id = "C6";
         BitArray b = new BitArray(new bool[] { true, false, true });
 

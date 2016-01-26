@@ -4,14 +4,12 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Collections
-{
+namespace IDeal.Szx.CsharpUtilibs.Collections {
     /// <summary> 
     /// provide simple interface to track objects 
     /// and check if an object is tracked.
     /// </summary>
-    public interface IObjectSet
-    {
+    public interface IObjectSet {
         /// <summary> check the existence of an object. </summary>
         /// <returns> true if object is exist, false otherwise. </returns>
         bool Contains(object obj);
@@ -26,8 +24,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
 #pragma warning restore 618
 
     [Obsolete("it may not get the best performance, please use ObjectSetTest instead.")]
-    public class ObjectSetUsingConditionalWeakTable : IObjectSet
-    {
+    public class ObjectSetUsingConditionalWeakTable : IObjectSet {
         #region Constructor
         #endregion Constructor
 
@@ -65,8 +62,7 @@ namespace IDeal.Szx.CsharpUtilibs.Collections
     }
 
     [Obsolete("it will crash if there are too many objects, please use ObjectSetTest instead.")]
-    public sealed class ObjectSetUsingObjectIDGenerator : IObjectSet
-    {
+    public sealed class ObjectSetUsingObjectIDGenerator : IObjectSet {
         #region Constructor
         #endregion Constructor
 

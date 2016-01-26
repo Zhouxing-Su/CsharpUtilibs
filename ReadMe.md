@@ -19,7 +19,7 @@ Extending types in System namespace.
  * **Serialization**  
  Providing a more configurable serializer.
 
- * **OS**  
+ * **System**  
  Utilities related to operating system.
    * **Threading**  
    Helper classes on multithread programing.

@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Collections
-{
-    public class ReadOnlySet<T> : ISet<T>
-    {
+namespace IDeal.Szx.CsharpUtilibs.Collections {
+    public class ReadOnlySet<T> : ISet<T> {
         #region Constructor
         public ReadOnlySet(ISet<T> set) { this.set = set; }
         #endregion Constructor

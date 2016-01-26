@@ -10,14 +10,12 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Serialization
-{
+namespace IDeal.Szx.CsharpUtilibs.Serialization {
     using IDeal.Szx.CsharpUtilibs.Collections;
 
 
     /// <summary> determine what kinds of objects will be visited. </summary>
-    public enum VisitPolicy
-    {
+    public enum VisitPolicy {
         Public = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static,
         Instance = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
         All = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static
@@ -37,8 +35,7 @@ namespace IDeal.Szx.CsharpUtilibs.Serialization
     /// if an event in "events on collections" is reached, it always comes  <para />
     /// after an OnEnterNonLeaf() and is followed by an OnLeaveNonLeaf().   <para />
     /// </remarks>
-    public interface IVisitor
-    {
+    public interface IVisitor {
         void OnEnterTraverse(object obj = null);
         void OnLeaveTraverse(object obj = null);
 
@@ -72,8 +69,7 @@ namespace IDeal.Szx.CsharpUtilibs.Serialization
         VisitPolicy Policy { get; set; }
     }
 
-    public class TextWriterVisitor : IVisitor
-    {
+    public class TextWriterVisitor : IVisitor {
         #region Constructor
         public TextWriterVisitor(TextWriter textWriter, VisitPolicy policy = VisitPolicy.All) {
             this.textWriter = textWriter;
@@ -99,7 +95,8 @@ namespace IDeal.Szx.CsharpUtilibs.Serialization
             Write(textWriter.NewLine + Indent);
         }
         protected void WriteInNewLine(object msg) {
-            WriteLine(); Write(msg);
+            WriteLine();
+            Write(msg);
         }
         protected void WriteFieldNameInNewLine(FieldInfo fieldInfo) {
             WriteInNewLine(EnterNamePrompt + fieldInfo.GetFriendlyName()
@@ -253,8 +250,7 @@ namespace IDeal.Szx.CsharpUtilibs.Serialization
         #endregion Type
 
         #region Constant
-        public enum TraverseState
-        {
+        public enum TraverseState {
             InClass, InList, InDictionary
         }
 
