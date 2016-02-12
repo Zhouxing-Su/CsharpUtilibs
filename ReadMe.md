@@ -21,5 +21,8 @@ Extending types in System namespace.
 
  * **System**  
  Utilities related to operating system.
+   * **Network**  
+   Helper classes for operations such as network status detection.
+
    * **Threading**  
    Helper classes on multithread programing.

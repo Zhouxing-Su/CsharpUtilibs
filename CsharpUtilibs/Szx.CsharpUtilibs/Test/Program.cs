@@ -9,11 +9,11 @@ using System.Threading;
 
 
 namespace IDeal.Szx.CsharpUtilibs.Test {
-    using IDeal.Szx.CsharpUtilibs;
     using IDeal.Szx.CsharpUtilibs.Collections;
     using IDeal.Szx.CsharpUtilibs.Serialization;
     using IDeal.Szx.CsharpUtilibs.System;
     using IDeal.Szx.CsharpUtilibs.System.Threading;
+    using IDeal.Szx.CsharpUtilibs.System.Network;
 
 
     internal class Program {
@@ -28,6 +28,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
             //System.ArgsProcessorTest.Test();
             //System.Threading.WorkerTest.Test();
             //System.Threading.ListenerTest.Test();
+            //System.Network.IPTest.Test();
         }
     }
 
@@ -451,7 +452,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
         }
     }
 
-    namespace OS {
+    namespace System {
         internal static class ArgsProcessorTest {
             internal static void Test() {
                 TestCorrectness();
@@ -565,6 +566,27 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
                     Listener.waitTerminationCodeAsync("async");
                     Console.WriteLine("waiting...");
                     Listener.waitTerminationCode("sync");
+                }
+
+                internal static void TestPerformance() {
+                }
+            }
+        }
+
+        namespace Network {
+            internal static class IPTest {
+                internal static void Test() {
+                    TestCorrectness();
+                    TestPerformance();
+                }
+
+                internal static void TestCorrectness() {
+                    foreach (var ip in IP.GetLocalIPv4()) {
+                        Console.WriteLine(ip);
+                    }
+                    foreach (var ip in IP.GetLocalIPv6()) {
+                        Console.WriteLine(ip);
+                    }
                 }
 
                 internal static void TestPerformance() {

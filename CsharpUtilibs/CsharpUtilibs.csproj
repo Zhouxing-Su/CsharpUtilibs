@@ -61,6 +61,7 @@
     <Compile Include="Szx.CsharpUtilibs\Collections\ObjectSet.cs" />
     <Compile Include="Szx.CsharpUtilibs\ObjectExtensions.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\EmbeddedResources.cs" />
+    <Compile Include="Szx.CsharpUtilibs\System\Network\IP.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\Threading\Listener.cs" />
     <Compile Include="Szx.CsharpUtilibs\Test\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
