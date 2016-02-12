@@ -23,9 +23,9 @@ namespace IDeal.Szx.CsharpUtilibs.Collections {
 #pragma warning restore 618
 
     /// <summary>
-    /// a specific implementation of ArrayBuilderTest using <![CDATA[ElementType[]]]> as buffer. 
+    /// a specific implementation of ArrayBuilder using <![CDATA[ElementType[]]]> as buffer. 
     /// </summary>
-    [Obsolete("it may not get the best performance, please use ArrayBuilderTest<T> instead.")]
+    [Obsolete("it may not get the best performance, please use ArrayBuilder<T> instead.")]
     public class ArrayBuilderBasedOnArray<ElementType> : IArrayBuilder<ElementType> {
         #region Constructor
         /// <summary> initialize buffer. </summary>
@@ -162,9 +162,9 @@ namespace IDeal.Szx.CsharpUtilibs.Collections {
     }
 
     /// <summary>
-    /// a specific implementation of ArrayBuilderTest using <![CDATA[List<ElementType>]]> as buffer. 
+    /// a specific implementation of ArrayBuilder using <![CDATA[List<ElementType>]]> as buffer. 
     /// </summary>
-    [Obsolete("it may not get the best performance, please use ArrayBuilderTest<T> instead.")]
+    [Obsolete("it may not get the best performance, please use ArrayBuilder<T> instead.")]
     public class ArrayBuilderBasedOnList<ElementType> : IArrayBuilder<ElementType> {
         #region Constructor
         /// <summary> initialize buffer. </summary>
