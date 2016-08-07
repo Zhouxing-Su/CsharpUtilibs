@@ -29,4 +29,7 @@ Extending types in System namespace.
    Helper classes for operations such as network status detection.
 
    * **Threading**  
-   Helper classes on multithread programing.
+   Helper classes for multithread programing.
+
+   * **File**  
+   Helper classes for file system operations.

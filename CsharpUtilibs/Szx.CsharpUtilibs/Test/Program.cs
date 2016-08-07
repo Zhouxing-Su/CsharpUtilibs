@@ -14,6 +14,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
     using IDeal.Szx.CsharpUtilibs.System;
     using IDeal.Szx.CsharpUtilibs.System.Threading;
     using IDeal.Szx.CsharpUtilibs.System.Network;
+    using IDeal.Szx.CsharpUtilibs.System.File;
     using IDeal.Szx.CsharpUtilibs.Random;
 
 
@@ -32,6 +33,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
             //System.Threading.ListenerTest.Test();
             //System.Threading.AtomicCounterTest.Test();
             //System.Network.IPTest.Test();
+            //System.File.ConvertScaleTest.Test();
 
             //Random.SelectTest.Test();
         }
@@ -627,6 +629,23 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
                     foreach (var ip in IP.GetLocalIPv6()) {
                         Console.WriteLine(ip);
                     }
+                }
+
+                internal static void TestPerformance() {
+                }
+            }
+        }
+
+        namespace File {
+            internal static class ConvertScaleTest {
+                internal static void Test() {
+                    TestCorrectness();
+                    TestPerformance();
+                }
+
+                internal static void TestCorrectness() {
+                    Console.WriteLine(ConvertScale.toProper(35234523));
+                    Console.WriteLine(ConvertScale.toGB(4564754858));
                 }
 
                 internal static void TestPerformance() {
