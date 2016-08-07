@@ -14,6 +14,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
     using IDeal.Szx.CsharpUtilibs.System;
     using IDeal.Szx.CsharpUtilibs.System.Threading;
     using IDeal.Szx.CsharpUtilibs.System.Network;
+    using IDeal.Szx.CsharpUtilibs.Random;
 
 
     internal class Program {
@@ -24,11 +25,15 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
             //Collections.ReadOnlySetTest.Test();
 
             Serialization.SerializerTest.Test();
+            //Serialization.JsonTest.Test();
 
             //System.ArgsProcessorTest.Test();
             //System.Threading.WorkerTest.Test();
             //System.Threading.ListenerTest.Test();
+            //System.Threading.AtomicCounterTest.Test();
             //System.Network.IPTest.Test();
+
+            //Random.SelectTest.Test();
         }
     }
 
@@ -450,6 +455,22 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
             internal static void TestPerformance() {
             }
         }
+
+        internal static class JsonTest {
+            internal static void Test() {
+                TestCorrectness();
+                TestPerformance();
+            }
+
+            internal static void TestCorrectness() {
+                C3 b = new C3();
+                Json.save("test.json", b);
+                b = Json.load<C3>("test.json");
+            }
+
+            internal static void TestPerformance() {
+            }
+        }
     }
 
     namespace System {
@@ -571,6 +592,25 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
                 internal static void TestPerformance() {
                 }
             }
+
+            internal static class AtomicCounterTest {
+                internal static void Test() {
+                    TestCorrectness();
+                    TestPerformance();
+                }
+
+                internal static void TestCorrectness() {
+                    Console.WriteLine(GlobalAtomicCounter.next());
+                    Console.WriteLine(GlobalAtomicCounter.next());
+
+                    AtomicCounter ac = new AtomicCounter();
+                    Console.WriteLine(ac.next());
+                    Console.WriteLine(ac.next());
+                }
+
+                internal static void TestPerformance() {
+                }
+            }
         }
 
         namespace Network {
@@ -591,6 +631,38 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
 
                 internal static void TestPerformance() {
                 }
+            }
+        }
+    }
+
+    namespace Random {
+        internal static class SelectTest {
+            internal static void Test() {
+                TestCorrectness();
+                TestPerformance();
+            }
+
+            internal static void TestCorrectness() {
+                global::System.Random rand = new global::System.Random();
+
+                int[] a = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                Select rs = new Select();
+                int select = a[0];
+
+                for (int i = 1; i < a.Length; ++i) {
+                    if (rs.isSelected(rand.Next())) { select = a[i]; }
+                }
+                Console.WriteLine(select);
+
+                rs.reset(0);
+                select = -1;
+                for (int i = 0; i < a.Length; ++i) {
+                    if (rs.isSelected(rand.Next())) { select = a[i]; }
+                }
+                Console.WriteLine(select);
+            }
+
+            internal static void TestPerformance() {
             }
         }
     }

@@ -14,4 +14,12 @@
 	why there is IReadOnlyList<T> and IReadOnlyDictionary<T> but no IReadOnlySet<T>?
 	why the Collection library can not be 'symmetric'?
 
-5.	
+5.	an interface can not specify a set of operators make it difficult for
+	implementing some math libraries.
+
+6.	there is no build-in random distribution support.
+
+7.	there is no global type alias and the elementary types are sealed 
+	which may lead to manual type replacement.
+
+8.	

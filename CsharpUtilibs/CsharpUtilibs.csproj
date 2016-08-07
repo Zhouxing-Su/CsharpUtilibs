@@ -41,6 +41,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +54,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Szx.CsharpUtilibs\Random\Select.cs" />
+    <Compile Include="Szx.CsharpUtilibs\Serialization\Json.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\ArgsProcessor.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\ArrayBuilder.cs" />
     <Compile Include="Szx.CsharpUtilibs\Collections\CollectionExtensions.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="Szx.CsharpUtilibs\ObjectExtensions.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\EmbeddedResources.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\Network\IP.cs" />
+    <Compile Include="Szx.CsharpUtilibs\System\Threading\AtomicCounter.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\Threading\Listener.cs" />
     <Compile Include="Szx.CsharpUtilibs\Test\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

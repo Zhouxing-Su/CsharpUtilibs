@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Threading;
 
 
@@ -42,8 +43,10 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
         }
     }
 
+    [DataContract]
     internal class C2 {
         public C2() { Id = "C2"; }
+        [DataMember]
         string Id { get; set; }
 
         public override string ToString() {
@@ -51,8 +54,11 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
         }
     }
 
+    [DataContract]
     internal class C3 : C2 {
+        [DataMember]
         string id = "C3";
+        [DataMember]
         HashSet<char> h = new HashSet<char> { 's', 'z', 'x' };
 
         public override string ToString() {

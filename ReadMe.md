@@ -9,15 +9,19 @@ some useful classes that extend System library.
 Extending types in System namespace.
 
  * **Test**  
- Used for testing the library.
+ Used for testing the library.  
  It can also be regard as code examples.
 
  * **Collections**  
- Extending types in System.Collections and System.Collections.Generic.
+ Extending types in System.Collections and System.Collections.Generic.  
  It also contains some useful collections which does not exist in system libraries.
+ 
+ * **Random**  
+ Providing basic random procedures like sampling.
 
  * **Serialization**  
- Providing a more configurable serializer.
+ Providing a more configurable serializer.  
+ Wrap standard serializer.
 
  * **System**  
  Utilities related to operating system.
