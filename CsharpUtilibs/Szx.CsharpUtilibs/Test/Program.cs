@@ -16,6 +16,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
     using IDeal.Szx.CsharpUtilibs.System.Network;
     using IDeal.Szx.CsharpUtilibs.System.File;
     using IDeal.Szx.CsharpUtilibs.Random;
+    using IDeal.Szx.CsharpUtilibs.Geometry;
 
 
     internal class Program {
@@ -36,6 +37,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
             //System.File.ConvertScaleTest.Test();
 
             //Random.SelectTest.Test();
+            //Geometry.CircleTest.Test();
         }
     }
 
@@ -679,6 +681,27 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
                     if (rs.isSelected(rand.Next())) { select = a[i]; }
                 }
                 Console.WriteLine(select);
+            }
+
+            internal static void TestPerformance() {
+            }
+        }
+    }
+
+    namespace Geometry {
+        internal static class CircleTest {
+            internal static void Test() {
+                TestCorrectness();
+                TestPerformance();
+            }
+
+            internal static void TestCorrectness() {
+                Circle c1 = new Circle(0, 0, 2);
+                Circle c2 = new Circle(1, 1, 1);
+                List<Point2D> points = Circle.intersectionPoints(c1, c2);
+                foreach (var item in points) {
+                    Console.WriteLine("(" + item.x + "," + item.y + ")");
+                }
             }
 
             internal static void TestPerformance() {

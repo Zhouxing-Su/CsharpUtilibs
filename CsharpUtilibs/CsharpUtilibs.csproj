@@ -54,6 +54,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Szx.CsharpUtilibs\Geometry\Circle.cs" />
+    <Compile Include="Szx.CsharpUtilibs\Geometry\Point.cs" />
     <Compile Include="Szx.CsharpUtilibs\Random\Select.cs" />
     <Compile Include="Szx.CsharpUtilibs\Serialization\Json.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\ArgsProcessor.cs" />
@@ -85,6 +87,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

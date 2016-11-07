@@ -16,6 +16,9 @@ Extending types in System namespace.
  Extending types in System.Collections and System.Collections.Generic.  
  It also contains some useful collections which does not exist in system libraries.
  
+ * **Geometry**  
+ Providing basic geometric graph manipulation.
+
  * **Random**  
  Providing basic random procedures like sampling.
 
