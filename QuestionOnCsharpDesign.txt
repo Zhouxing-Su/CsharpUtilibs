@@ -19,7 +19,7 @@
 
 6.	there is no build-in random distribution support.
 
-7.	there is no global type alias and the elementary types are sealed 
+7.	there is no global/namespace-wide/class-wide type alias and the elementary types are sealed 
 	which may lead to manual type replacement.
 
 8.	
