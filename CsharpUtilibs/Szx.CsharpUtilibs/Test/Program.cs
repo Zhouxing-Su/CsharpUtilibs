@@ -35,6 +35,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
             //System.Threading.AtomicCounterTest.Test();
             //System.Network.IPTest.Test();
             //System.File.ConvertScaleTest.Test();
+            System.File.TraverserTest.Test();
 
             //Random.SelectTest.Test();
             //Geometry.CircleTest.Test();
@@ -648,6 +649,23 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
                 internal static void TestCorrectness() {
                     Console.WriteLine(ConvertScale.toProper(35234523));
                     Console.WriteLine(ConvertScale.toGB(4564754858));
+                }
+
+                internal static void TestPerformance() {
+                }
+            }
+
+            internal static class TraverserTest {
+                internal static void Test() {
+                    TestCorrectness();
+                    TestPerformance();
+                }
+
+                internal static void TestCorrectness() {
+                    Traverser.traverseDirectory(".", f => { Console.WriteLine(f.FullName); }, d => true);
+
+                    List<string> files = Traverser.listFiles(".");
+                    foreach (var f in files) { Console.WriteLine(f); }
                 }
 
                 internal static void TestPerformance() {

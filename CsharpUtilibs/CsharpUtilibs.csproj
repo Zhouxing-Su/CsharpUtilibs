@@ -67,6 +67,7 @@
     <Compile Include="Szx.CsharpUtilibs\ObjectExtensions.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\File\ConvertScale.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\EmbeddedResources.cs" />
+    <Compile Include="Szx.CsharpUtilibs\System\File\Traverser.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\Network\IP.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\Threading\AtomicCounter.cs" />
     <Compile Include="Szx.CsharpUtilibs\System\Threading\Listener.cs" />
