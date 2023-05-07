@@ -2,7 +2,7 @@
 using System.Reflection;
 
 
-namespace IDeal.Szx.CsharpUtilibs.System {
+namespace IDeal.Szx.CsharpUtilibs.Sys {
     /// <summary>
     ///     provide utilities for embedded assembly. 
     ///     the most basic usage is just adding this file to your project.

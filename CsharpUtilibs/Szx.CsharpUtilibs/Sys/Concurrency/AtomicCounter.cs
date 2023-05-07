@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 
 
-namespace IDeal.Szx.CsharpUtilibs.System.Threading {
+namespace IDeal.Szx.CsharpUtilibs.Sys.Concurrency {
     public static class GlobalAtomicCounter {
         public static int next() { return Interlocked.Increment(ref globalId); }
 

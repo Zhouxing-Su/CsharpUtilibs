@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Random {
+namespace IDeal.Szx.CsharpUtilibs.Rand {
     public class Select {
         /// <summary>
         /// sometimes the first element is pre-selected with the possibility 

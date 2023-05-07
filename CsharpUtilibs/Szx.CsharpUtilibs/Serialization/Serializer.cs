@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 
 namespace IDeal.Szx.CsharpUtilibs.Serialization {
     using IDeal.Szx.CsharpUtilibs.Collections;
-    using IDeal.Szx.CsharpUtilibs.Test;
 
 
     public class SerializerBase {

@@ -11,12 +11,12 @@ using System.Threading;
 namespace IDeal.Szx.CsharpUtilibs.Test {
     using IDeal.Szx.CsharpUtilibs.Collections;
     using IDeal.Szx.CsharpUtilibs.Serialization;
-    using IDeal.Szx.CsharpUtilibs.System;
-    using IDeal.Szx.CsharpUtilibs.System.Threading;
-    using IDeal.Szx.CsharpUtilibs.System.Network;
-    using IDeal.Szx.CsharpUtilibs.System.File;
-    using IDeal.Szx.CsharpUtilibs.Random;
-    using IDeal.Szx.CsharpUtilibs.Geometry;
+    using IDeal.Szx.CsharpUtilibs.Sys;
+    using IDeal.Szx.CsharpUtilibs.Sys.Concurrency;
+    using IDeal.Szx.CsharpUtilibs.Sys.Network;
+    using IDeal.Szx.CsharpUtilibs.Sys.FileSys;
+    using IDeal.Szx.CsharpUtilibs.Rand;
+    using IDeal.Szx.CsharpUtilibs.Calc;
 
 
     internal class Program {
@@ -561,7 +561,7 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
             }
         }
 
-        namespace Threading {
+        namespace Concurrency {
             internal static class WorkerTest {
                 internal static void Test() {
                     TestCorrectness();
@@ -662,9 +662,9 @@ namespace IDeal.Szx.CsharpUtilibs.Test {
                 }
 
                 internal static void TestCorrectness() {
-                    Traverser.traverseDirectory(".", f => { Console.WriteLine(f.FullName); }, d => true);
+                    Traverser.TraverseDirectory(".", f => { Console.WriteLine(f.FullName); }, d => true);
 
-                    List<string> files = Traverser.listFiles(".");
+                    List<string> files = Traverser.ListFiles(".");
                     foreach (var f in files) { Console.WriteLine(f); }
                 }
 

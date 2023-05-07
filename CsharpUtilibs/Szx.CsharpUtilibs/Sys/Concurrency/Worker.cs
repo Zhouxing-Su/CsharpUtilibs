@@ -2,7 +2,7 @@
 using System.Threading;
 
 
-namespace IDeal.Szx.CsharpUtilibs.System.Threading {
+namespace IDeal.Szx.CsharpUtilibs.Sys.Concurrency {
     public static class Worker {
         /// <summary> run method in synchronized way with a non-negative timeout. </summary>
         /// <returns> true if the work is finished within timeout. </returns>

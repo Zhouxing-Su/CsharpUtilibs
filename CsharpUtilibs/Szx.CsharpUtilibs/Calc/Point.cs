@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Geometry {
+namespace IDeal.Szx.CsharpUtilibs.Calc {
     using Number = Double;
 
     public class Point2D {

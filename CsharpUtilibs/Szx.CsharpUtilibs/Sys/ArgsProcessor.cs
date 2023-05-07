@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
+using IDeal.Szx.CsharpUtilibs.Collections;
 
 
-namespace IDeal.Szx.CsharpUtilibs.System {
-    using IDeal.Szx.CsharpUtilibs.Collections;
-
-
+namespace IDeal.Szx.CsharpUtilibs.Sys {
     /// <summary>
     /// it can handles 3 types of arguments.                               <para />
     /// the first one is plain arguments, which come by themselves.        <para />

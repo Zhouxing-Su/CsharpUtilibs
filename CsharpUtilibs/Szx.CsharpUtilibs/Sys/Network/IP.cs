@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace IDeal.Szx.CsharpUtilibs.System.Network {
+namespace IDeal.Szx.CsharpUtilibs.Sys.Network {
     public class IP {
         public static IPAddress[] GetLocalIP() { return Dns.GetHostEntry(Dns.GetHostName()).AddressList; }
         public static IEnumerable<IPAddress> GetLocalIP(AddressFamily addressFamily) {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace IDeal.Szx.CsharpUtilibs.Geometry {
+namespace IDeal.Szx.CsharpUtilibs.Calc {
     using Number = Double;
 
     public class Circle {

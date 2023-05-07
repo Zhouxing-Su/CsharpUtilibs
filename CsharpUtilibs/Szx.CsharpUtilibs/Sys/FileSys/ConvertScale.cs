@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace IDeal.Szx.CsharpUtilibs.System.File {
+namespace IDeal.Szx.CsharpUtilibs.Sys.FileSys {
     using TQuantity = Double;
 
     public enum EScale { B, KB, MB, GB, TB, PB, EB, ZB, YB }
